@@ -6,35 +6,31 @@
       <div class="header-container">
         <div class="header-menu heder-menu-library hidden container-navigation">
           <div class="container_render_link">
-            <img class="menu-logo__logo logo__images" width="20" height="20" src="./image/icons.svg" alt="film" />
+            <img class="menu-logo__logo logo__images" width="20" height="20" src="./image/icons.svg" alt="film"/>
             <h1 class="menu-logo__text">Filmoteka</h1>
           </div>
-          
           <ul class="header-menu__nav">
             <li class="menu-nav__link">
-              <a class="nav-link__item current" href="./header-home.html">HOME</a>
-            </li>
-            <li class="menu-nav__link">
-              <a class="nav-link__item btn link-library" href="./header-home.html">MY LIBRARY</a>
+              <button id="home" class="nav-link__item current">HOME</button>
+          </li>
+          <li class="menu-nav__link">
+            <button id="library" class="nav-link__item btn link-library">
+              MY LIBRARY
+            </button>
             </li>
           </ul>
         </div>
-  
         <div class="header-main">
           <form class="header-search">
             <input name="querySearch" class="search-input" type="text" placeholder="Movie search" />
             <svg class="search-icon">
               <use href="./image/icons.svg#search"></use>
-            </svg>
-            
-            
+            </svg>  
           </form>
-  
-          <div class="container error-container">
+            <div class="container error-container">
             <p class="request-paragraph">
             </p>
           </div>
-          
           <ul class="header-search__container unvisible">
             <li>
               <button class="library-button library-first active_btn">WATCHED</button>
@@ -42,15 +38,9 @@
             <li>
               <button class="library-button library-second">QUEUE</button>
             </li>
-  
           </ul>
-  
-  
-  
         </div>
       </div>
-  
-    </div>
-  
+      </div>
   </header>
   
