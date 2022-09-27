@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/sass/components/header-library.scss"
+    ],
+    "names": [],
+    "file": "header-library.min.css"
+}
