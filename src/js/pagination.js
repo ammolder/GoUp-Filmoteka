@@ -12,17 +12,28 @@ function renderedPagination(page, totalPages) {
   currentPage = page;
 
   let markup = '';
-  if (page > 1) {
-    markup += `<li class="pagination-btn >🡠</li>`;
+   if (page > 1) {
+    markup += `<li class="pagination-btn>
+        <svg width="16" height="16">
+            <use href="./image/icons.svg#left"></use>
+        </svg>
+
+    </li>` ;
   } else {
-    markup += `<li class="pagination-btn disabled" disabled="">🡠</li>`;
+    markup += `<li class="pagination-btn disabled" disabled="">
+        <svg width="16" height="16">
+            <use href="./image/icons.svg#left"></use>
+        </svg>
+
+    </li>` ;
   }
+
   if (page > 1) {
-    markup += '<li class="pagination-btn current">1</li>';
+    markup += `<li class="pagination-btn current">1</li>`;
   }
   if (page > 4) {
     ``;
-    markup += '<li class="pagination-btn">...</li>';
+    markup += `<li class="pagination-btn">...</li>`;
   }
   if (page > 3) {
     markup += ` <li class="pagination-btn">${beforeEndPage}</li>`;
@@ -42,9 +53,17 @@ function renderedPagination(page, totalPages) {
   }
   if (totalPages > page) {
     markup += `<li class="pagination-btn">${totalPages}</li>`;
-    markup += '<li class="pagination-btn">&#129122;</li>';
+    markup += ` <li class="pagination-btn">
+        <svg width="16" height="16">
+            <use href="./image/icons.svg#right"></use>
+        </svg>
+    </li>`;
   } else {
-    markup += '<li class="pagination-btn disabled">&#129122;</li>';
+    markup += ` <li class="pagination-btn disabled">
+        <svg width="16" height="16">
+            <use href="./image/icons.svg#right"></use>
+        </svg>
+    </li>`;
   }
 
   pagination.innerHTML = markup;
@@ -59,15 +78,17 @@ function renderedPagination(page, totalPages) {
 }
 
 function onPagination(evt ) {
-  if (evt.target.nodeName !== 'LI') {
+  if (evt.target.nodeName !== `LI`) {
     return;
   }
 
-  if (evt.textContent === '...') {
+  if (evt.textContent === `...`) {
     return;
   }
 
-  if (evt.textContent === '🡠') {
+  if (evt.textContent === `<svg width="16" height="16">
+            <use href="./image/icons.svg#left"></use>
+        </svg>`) {
     if (evt.classList.contains('disabled')) {
       return;
     }
@@ -75,7 +96,9 @@ function onPagination(evt ) {
     return;
   }
 
-  if (evt.textContent === '🡢') {
+  if (evt.textContent === `<svg width="16" height="16">
+            <use href="./image/icons.svg#right"></use>
+        </svg>`) {
     if (evt.classList.contains('disabled')) {
       return;
     }
@@ -84,3 +107,5 @@ function onPagination(evt ) {
   }
  сurrentPage = Number(evt.textContent);
 }
+
+
