@@ -61,6 +61,7 @@
 	width: 24px;
 	height: 24px;
 	margin-right: 8px;
+	stroke: var(--primary-text-color);
 
 
 	@media screen and (min-width: 1280px) {
@@ -156,14 +157,14 @@
 	position: absolute;
 	width: 15px;
 	height: 15px;
-	fill: var(--secondary-text-color);
+	stroke: var(--primary-text-color);
 	right: 0;
 	top: 0;
-}
-.search-icon:hover,
-.search-icon:focus {
+
+	&:hover,
+	&:focus {
 		cursor: pointer;
-	
+	}
 
 	@media screen and (min-width: 768px) and (max-width: 1279px) {
 		right: 185px;
@@ -172,6 +173,7 @@
 		right: 410px;
 	}
 }
+	
 	
 .header-search__container {
 	display: flex;
