@@ -1,14 +1,16 @@
-.btn{
-    background-color: aqua;
-}
+
 .backdrop {
-  overflow-y: scroll;
+overflow-y: scroll;
   position: fixed;
   top: 0;
   width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.2);
-transition: opacity 250ms, visibility 250ms;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.2);
+  @media screen and (min-width:768px){
+    padding-left: 32px;
+    padding-right: 32px;
+  }
 }
 .is-hidden {
   opacity: 0;
@@ -22,7 +24,7 @@ align-items: center;
 justify-content: center;
 width: 30px;
 height: 30px;
-background: #ffffff;
+background: var(--primary-text-color);
 border: 2px solid #000000;
 box-sizing: border-box;
 border-radius: 50%;
@@ -31,22 +33,11 @@ right: 8px;
 position: absolute;
 cursor: pointer;
 }
-
-.modal-backdrop {
-position: absolute;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-background-color: rgba(0,0,0,.2);
-}
-
 .modal{
  overflow-x: auto;
   position: relative;
   margin: auto;
-  background-color:#ffff;
-  font-family:  Roboto,normal;;
+  background-color:var(--primary-text-color);
   font-weight:500;
   font-size: 20px;
 
@@ -79,13 +70,16 @@ background-color: rgba(0,0,0,.2);
   height: 357px;
   border-radius: 5px;
   margin-bottom: 30px;
+  
 @media screen and(min-width:768px)and(max-width:1280px){
     max-width: 264px;
     height: 373.55px;
+    margin-right: 68px;
   }
   @media screen and (min-width:1280px) {
     max-width: 375px;
     height: 478px;
+    margin-right: 16px;
   }
 }
 
@@ -93,29 +87,43 @@ background-color: rgba(0,0,0,.2);
   text-align: start;
 }
 .modal-info__title{
- font-size: 20px;
-line-height: 1.15;
 margin-bottom: 20px;
+margin-top:20px;
+ text-align: start;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height:1.15;
+@media screen and (min-width:768px){
+  margin-top: 0;
+}
+
 @media screen and (min-width:1280px) {
-    font-size: 30px;
-    line-height: 1.17;
+   font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 30px;
+line-height: 1.16;
+    margin-top: 0;
   }
 }
 .modal-info__text{
     font-size:12px;
-    color: #8C8C8C;
     display: flex;
-    display: flex;
-/* margin-bottom: 8px; */
 }
-/* .modal-info__text--meaning{
-
-} */
-
+.modal-info__text--description{
+ color: #8C8C8C; 
+line-height:1.33;
+}
+.modal-info__text--meaning{
+  line-height: 1.16;
+  color:#000000;
+}
 .film__rating--orange{
 padding-left: 10px;
 padding-right: 10px;
-color: #fff;
+color:var(--primary-text-color);
 background-color: #ff6b01;
 border-radius: 5px;
 }
@@ -124,25 +132,46 @@ border-radius: 5px;
 }
 
 .modal-info__about{
+  text-align: start;
 text-transform: uppercase;
 margin-top: 20px;
 margin-bottom: 8px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 1.33;
 }
 .modal-info__description{
-  line-height: 1.67;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 1.67;
 }
 
 .modal-info__btn{
     display: flex;
     margin-top: 20px;
+    @media screen and (min-width:1280px){
+      margin-left: 24px;
+    }
 }
 .info-btn{
-    background-color: #ffff;
-    width: 110px;
-    height: 44px;
-    border: 1px solid #000000;
-    border-radius: 5px;
+  width: 110px;
+  height: 44px;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 1.33;
+background-color:#fff;
+
+display: flex;
+align-items: center;
+text-align: center;
 text-transform: uppercase;
+
 
  @media screen and (min-width:768px) and (max-width:1280px) {
     width: 125px;
@@ -151,14 +180,11 @@ text-transform: uppercase;
     width: 136px;
   }
 }
-
-/* Навешиваем класс при клике на кнопки */
 .info-btn:hover{
-    color: #ffff;
+    color:var(--primary-text-color);
     background-color:#FF6B01;
     border-radius: 5px;
     border:0px;
-    /* пересмотреть стилизацию бордер 0 */
 }
 
 .info-btn:first-child {
