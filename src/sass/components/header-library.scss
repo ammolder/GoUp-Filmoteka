@@ -13,7 +13,7 @@
 	}
 
 	@media (min-width: 768px) and (max-width: 1279px) {
-		padding-bottom: 84px;
+		padding-bottom: 81px;
 		background-image: url(../image/header2-tab.jpg),
 		url(../image/header-Lib-tab1x.webp), 
 		url(../image/header-Lib-tab2x.webp);
@@ -60,7 +60,7 @@
 .menu-logo__logo {
 	width: 24px;
 	height: 24px;
-	margin-right: 8px;
+	margin-right: 10px;
 	stroke: var(--primary-text-color);
 
 	@media screen and (min-width: 1280px) {
@@ -129,6 +129,7 @@
 	background: none;
 	outline: none;
 	color: var(--bg-color);
+	height: 20px;
 
 	&:focus {
 		border-bottom: 0.5px solid var(--primary-text-color);

@@ -13,7 +13,7 @@
 	}
 
 	@media (min-width: 768px) and (max-width: 1279px) {
-		padding-bottom: 84px;
+		padding-bottom: 81px;
 		background-image: url(../image/header-tab.jpg),
 		url(../image/header-tab1x.webp), 
 		url(../image/header-tab2x.webp);
@@ -130,6 +130,7 @@
 	background: none;
 	outline: none;
 	color: var(--bg-color);
+	height: 20px;
 
 	&:focus {
 		border-bottom: 0.5px solid var(--primary-text-color);
