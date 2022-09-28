@@ -70,18 +70,24 @@
   max-width: 240px;
   height: 357px;
   border-radius: 5px;
-  margin-bottom: 30px;
 
   @media screen and(min-width:$tablet) and(max-width:$desktop) {
     max-width: 264px;
     height: 373.55px;
-    margin-right: 68px;
   }
   @media screen and (min-width: $desktop) {
     max-width: 375px;
     height: 478px;
-    margin-right: 16px;
   }
+}
+
+.modal-picture{
+@media screen and(min-width:$tablet) and(max-width:$desktop) {
+margin-right: 68px;
+}
+@media screen and (min-width: $desktop) {
+margin-right: 16px;
+}
 }
 
 .modal-info {
