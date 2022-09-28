@@ -1,3 +1,23 @@
+.card__list {
+  display: grid;
+  justify-items: center;
+
+  @media screen and (min-width: $mobile) and (max-width: $max-mob) {
+    grid-template-columns: repeat(1, 280px);
+    grid-gap: 20px;
+  }
+
+  @media screen and (min-width: $tablet) and (max-width: $max-tabley) {
+    grid-template-columns: repeat(2, 336px);
+    grid-gap: 32px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    grid-template-columns: repeat(3, 395px);
+    grid-gap: 16px;
+  }
+}
+
 .card-item {
   border-radius: 5px;
   max-width: 100%;
