@@ -6,7 +6,7 @@
 
 	@media (min-width: 1280px) {
 		padding-bottom: 84px;
-		background-image: url(../image/header-desk.jpg),
+		background-image:
 		url(../image/header-desk1x.webp), 
 		url(../image/header-desk2x.webp);
 
@@ -14,13 +14,13 @@
 
 	@media (min-width: 768px) and (max-width: 1279px) {
 		padding-bottom: 81px;
-		background-image: url(../image/header-tab.jpg),
+		background-image:
 		url(../image/header-tab1x.webp), 
 		url(../image/header-tab2x.webp);
 	}
 
 	@media (max-width: 767px) {
-		background-image: url(../image/header-mob.jpg),
+		background-image:
 		url(../image/header-mob1x.webp), 
 		url(../image/header-mob2x.webp);
 
