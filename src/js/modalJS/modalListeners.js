@@ -1,7 +1,7 @@
 import { modal } from './modalRenderJs';
 import { getApiDetails } from './getFilmDetails';
 
-const cardList = document.querySelector('.card-list');
+const cardList = document.querySelector('.card__list');
 cardList.addEventListener('click', onClickCard);
 
 export async function onClickCard(evt) {
