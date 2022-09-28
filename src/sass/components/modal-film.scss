@@ -34,7 +34,6 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
-    // margin: auto;
     min-width: 704px;
     min-height: 552px;
     padding: 40px 72px 40px 36px;
@@ -97,8 +96,8 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 1.15;
-  @media screen and (min-width: $tablet) {
-    margin-top: 0;
+  @media screen and (min-width: $mobile) and (max-width: $max-mob) {
+    text-align: center;
   }
 
   @media screen and (min-width: $desktop) {
@@ -170,6 +169,10 @@
 .modal-info__btn {
   display: flex;
   margin-top: 20px;
+  @media screen and (max-width: $max-mob) {
+    justify-content: center;
+  }
+
   @media screen and (min-width: $desktop) {
     margin-left: 12px;
   }
