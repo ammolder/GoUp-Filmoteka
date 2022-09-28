@@ -186,10 +186,10 @@
 
   display: flex;
   align-items: center;
-  text-align: center;
   text-transform: uppercase;
   border: 1px solid var(--primary-text-color-dark);
   border-radius: 5px;
+  cursor: pointer;
 
   @media screen and (min-width: $tablet) and (max-width: $desktop) {
     width: 125px;
@@ -205,8 +205,7 @@
 .info-btn:hover {
   color: var(--primary-text-color);
   background-color: var(--btn-accent-color);
-  border-radius: 5px;
-  border: 0px;
+  border-color: var(--btn-accent-color);
 }
 
 .info-btn:first-child {
