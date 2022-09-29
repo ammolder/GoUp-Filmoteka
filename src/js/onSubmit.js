@@ -1,7 +1,7 @@
 // import { getApi } from './js/searchApi';
 import { renderGallery } from './renderList';
 import { getApi } from './searchApi';
-import { onClickCard } from './modalJs/modalListeners';
+import { onClickCard } from './modalListeners';
 
 const cardList = document.querySelector('.card__list');
 const form = document.querySelector('.header-search');
