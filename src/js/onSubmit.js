@@ -10,7 +10,7 @@ cardList.addEventListener('click', onClickCard);
 
 export async function onSubmitForm(evt) {
   evt.preventDefault();
-  console.log(evt.currentTarget.elements.querySearch.value);
+
   const searchName = evt.currentTarget.elements.querySearch.value;
   const response = await getApi(searchName);
 
