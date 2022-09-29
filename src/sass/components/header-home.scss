@@ -117,6 +117,13 @@
 .header-search {
   position: relative;
 }
+.header__button {
+  border: 0px;
+  padding: 0px;
+  background-color: transparent;
+  border-color: transparent;
+  outline: none;
+}
 
 .header-search-input {
   display: block;
