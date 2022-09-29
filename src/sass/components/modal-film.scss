@@ -4,6 +4,7 @@
   pointer-events: none;
 }
 .backdrop {
+  z-index: 3;
   overflow-y: scroll;
   position: fixed;
   top: 0;
@@ -53,7 +54,6 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  stroke: #000000;
   background-color: transparent;
   border-color: transparent;
   box-sizing: border-box;
@@ -61,7 +61,9 @@
   right: 8px;
   position: absolute;
   cursor: pointer;
+  background-image: url(../image/close.svg);
 }
+
 .modal-picture__image {
   margin-right: auto;
   margin-left: auto;
@@ -151,6 +153,14 @@
 }
 .film__rating--divider {
   margin-right: 3px;
+}
+
+.film__rating--grey {
+  padding-left: 10px;
+  padding-right: 10px;
+  color: var(--primary-text-color-dark);
+  background-color: #f7f7f7;
+  border-radius: 5px;
 }
 
 .modal-info__about {
