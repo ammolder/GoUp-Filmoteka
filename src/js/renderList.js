@@ -7,6 +7,7 @@ const gallery = document.querySelector('.card__list');
 export function renderGallery(data) {
   const markupGallery = data
     .map(card => {
+      const date = new Date(card.release_date).getFullYear();
       const genre = genres
         .map(item => {
           if (card.genre_ids.includes(item.id)) {
@@ -20,14 +21,15 @@ export function renderGallery(data) {
 
       return `
       <li class="card__item" data-id="${card.id}">
-      <img  src="https://image.tmdb.org/t/p/w500/${[card.poster_path]}" alt="${
-        card.title
-      }" data-id="${card.id}"/>
-       
-       <h2 data-id="${card.id}">${card.title}</h2>
-        <p data-id="${card.id}">${genre.length ? genre : 'Unknown'} | ${
-        card.release_date
-      } </p>
+      <img class="card__img" src="https://image.tmdb.org/t/p/w500/${[
+        card.poster_path,
+      ]}" alt="${card.title}" data-id="${card.id}"/>
+       <div class="card__box">
+       <h2 class="card__title" data-id="${card.id}">${card.title}</h2>
+        <p class="card__text" data-id="${card.id}">${
+        genre.length ? genre : 'Unknown'
+      } | ${date} </p>
+      </div>
     </li>`;
     })
     .join('');
