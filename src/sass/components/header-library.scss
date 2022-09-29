@@ -1,12 +1,14 @@
 .header {
 	padding-top: 40px;
 	padding-bottom: 92px;
-	background: url(../image/header2-mob.jpg) 0 0/100% 100% no-repeat;
+	background-size: auto auto;
+	background-repeat: no-repeat;
+	background-size: cover;
 	font-family: "Roboto", sans-serif;
 
 	@media (min-width: 1280px) {
 		padding-bottom: 84px;
-		background-image:
+		background-image: url(../image/header2-desk.jpg),url(../image/header2-desk2x.jpg),
 		url(../image/header-Lib-desk1x.webp), 
 		url(../image/header-Lib-desk2x.webp);
 
@@ -14,13 +16,13 @@
 
 	@media (min-width: 768px) and (max-width: 1279px) {
 		padding-bottom: 81px;
-		background-image:
+		background-image: url(../image/header2-tab.jpg),url(../image/header2-tab2x.jpg),
 		url(../image/header-Lib-tab1x.webp), 
 		url(../image/header-Lib-tab2x.webp);
 	}
 
 	@media (max-width: 767px) {
-		background-image:
+		background-image: url(../image/header2-mob.jpg),url(../image/header2-mob2x.jpg),
 		url(../image/header-Lib-mob1x.webp), 
 		url(../image/header-Lib-mob2x.webp);
 
