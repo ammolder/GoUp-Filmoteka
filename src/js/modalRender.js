@@ -42,8 +42,8 @@ export function modal(data) {
                <p class="modal-info__description">${data.overview}</p>
                </div>
             <div class="modal-info__btn">
-            <button type="button" class="info-btn">add to Watched</button>
-           <button type="button" class="info-btn queue-btn">add to queue</button>
+            <button id="library-wathed" type="button" class="info-btn">add to Watched</button>
+           <button id="library-queue" type="button" class="info-btn queue-btn">add to queue</button>
            </div>
         </div>
 
