@@ -5,4 +5,4 @@ import * as myModule from './js/onSubmit';
 import * as myModule from './js/renderList';
 import * as myModule from './js/renderPop';
 import * as myModule from './js/searchApi';
-// myModule.doAllTheAmazingThings();
+import * as myModule from './js/firebase-home';
