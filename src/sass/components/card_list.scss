@@ -1,0 +1,77 @@
+.card__list {
+  display: grid;
+  justify-items: center;
+
+  @media screen and (min-width: $mobile) and (max-width: $max-mob) {
+    grid-template-columns: repeat(1, 280px);
+    grid-gap: 20px;
+  }
+
+  @media screen and (min-width: $tablet) and (max-width: $max-tabley) {
+    grid-template-columns: repeat(2, 336px);
+    grid-gap: 32px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    grid-template-columns: repeat(3, 395px);
+    grid-gap: 16px;
+  }
+}
+
+.card-item {
+  border-radius: 5px;
+  max-width: 100%;
+  transition: var(--timing-function);
+}
+
+.card__item:hover,
+.card__item:focus {
+  transform: scale(1.05);
+}
+
+.card__title {
+  font-family: $base-font;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--primary-text-color-dark);
+
+  @media screen and (min-width: $mobile) and (max-width: $max-mob) {
+    font-size: $font-paragraph;
+    line-height: 1.16;
+    margin-top: 10px;
+  }
+
+  @media screen and (min-width: $tablet) and (max-width: $max-tabley) {
+    font-size: $font-paragraph;
+    line-height: 1.33;
+    margin-top: 8px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    font-size: 20px;
+    line-height: 1.2;
+    margin-top: 12px;
+  }
+}
+
+.card__text {
+  font-family: $base-font;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #ff6b08;
+
+  @media screen and (min-width: $mobile) and (max-width: $max-mob) {
+    font-size: $font-paragraph;
+    line-height: 1.16;
+  }
+
+  @media screen and (min-width: $tablet) and (max-width: $max-tabley) {
+    font-size: $font-paragraph;
+    line-height: 1.33;
+  }
+
+  @media screen and (min-width: $desktop) {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}
