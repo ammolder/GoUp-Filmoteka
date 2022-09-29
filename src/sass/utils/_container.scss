@@ -6,14 +6,11 @@
 
   @media screen and (min-width: $mobile) {
     width: $mobile;
-    padding-top: 20px;
   }
   @media screen and (min-width: $tablet) {
     width: $tablet;
-    padding-top: 59px;
   }
   @media screen and (min-width: $desktop) {
     width: $desktop;
-    padding-top: 60px;
   }
 }
