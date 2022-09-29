@@ -1,5 +1,5 @@
 import { modal } from './modalRender';
-import { getApiDetails } from './getFilmDetails';
+import { getApiDetails } from './getFIlmDetails';
 
 const cardList = document.querySelector('.card__list');
 cardList.addEventListener('click', onClickCard);
