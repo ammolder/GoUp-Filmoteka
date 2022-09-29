@@ -1,32 +1,34 @@
 <header class="header">
-      <div class="container header-container">
-        <nav class="header-menu">
-          <div class="container_render_link">
-            <svg class="menu-logo__logo">
-              <use href="./image/icons.svg#film"></use>
-            </svg>
-            <a class="menu-logo__text" href="./index.html">Filmoteka</a>
-          </div>
-          <ul class="header-menu__nav">
-            <li class="menu-nav__link">
-              <a class="nav-link__item current" href="./index.html">HOME</a>
-          </li>
-          <li class="menu-nav__link">
-            <a class="nav-link__item" href="./library.html">MY LIBRARY</a>
-            </li>
-          </ul>
-        </nav>
-        <div class="header-main">
-          <form class="header-search">
-            <input name="querySearch" class="search-input" type="text" placeholder="Movie search" />
-            <svg class="search-icon">
-              <use href="./image/icons.svg#search"></use>
-            </svg>  
-          </form>
-            <div class="container error-container">
-            <p class="request-paragraph">
-            </p>
-          </div>
-        </div>
+  <div class="container">
+    <nav class="header-nav">
+      <div class="header-nav__wrap">
+        <svg class="header-nav__logo">
+          <use href="./image/icons.svg#film"></use>
+        </svg>
+        <a class="header-nav__text" href="./index.html">Filmoteka</a>
       </div>
-  </header>
+      <ul class="header-nav__list">
+        <li class="header-nav__item">
+          <a class="header-nav__link current" href="./index.html">HOME</a>
+        </li>
+        <li class="header-nav__item">
+          <a class="header-nav__link" href="./library.html">MY LIBRARY</a>
+        </li>
+      </ul>
+    </nav>
+    <form class="header-search">
+      <input
+        name="querySearch"
+        class="header-search-input"
+        type="text"
+        placeholder="Movie search"
+      />
+      <svg class="header-search-icon">
+        <use href="./image/icons.svg#search"></use>
+      </svg>
+    </form>
+    <div class="container error-container">
+      <p class="request-paragraph"></p>
+    </div>
+  </div>
+</header>
