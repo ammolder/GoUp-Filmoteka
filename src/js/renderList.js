@@ -24,12 +24,10 @@ export function renderGallery(data) {
       <img class="card__img" src="https://image.tmdb.org/t/p/w500/${[
         card.poster_path,
       ]}" alt="${card.title}" data-id="${card.id}"/>
-       <div class="card__box">
        <h2 class="card__title" data-id="${card.id}">${card.title}</h2>
         <p class="card__text" data-id="${card.id}">${
         genre.length ? genre : 'Unknown'
       } | ${date} </p>
-      </div>
     </li>`;
     })
     .join('');
