@@ -3,12 +3,15 @@ import { getApiDetails } from './getFIlmDetails';
 
 const cardList = document.querySelector('.card__list');
 cardList.addEventListener('click', onClickCard);
+let responseCardDetails = null;
+let watchedStorage = [];
+let queueStorage = [];
 
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
   if (cardId) {
-    const responseCardDetails = await getApiDetails(cardId);
-    console.log(responseCardDetails.data);
+    responseCardDetails = await getApiDetails(cardId);
+    // console.log(responseCardDetails.data);
     modal(responseCardDetails.data);
 
     const modalOverlay = document.querySelector('.backdrop');
@@ -18,7 +21,7 @@ export async function onClickCard(evt) {
 }
 
 export function onClickModal(evt) {
-  console.log(evt.target);
+  // console.dir(evt.target);
   const modalOverlay = document.querySelector('.backdrop');
   // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {
@@ -41,20 +44,62 @@ export function keyDown(evt) {
   }
 }
 
+const STORAGE_WATCHED_KEY = 'watched-films-lib';
+const STORAGE_QUEUE_KEY = 'queue-films-lib';
+
 export function onWatchedClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM WATCHED';
-  button.style.backgroundColor = 'red';
-  button.style.outline = 'none';
-  button.style.borderColor = 'transparent';
-  button.style.color = 'var(--primary-text-color)';
+  button.classList.add('remove');
+  let watched = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+  console.log(watched);
+  if (watched !== null) {
+    for (let i = 0; i < watched.length; i += 1) {
+      if (+responseCardDetails.data.id === +watched[i].id) {
+        console.log(i);
+        console.log('watchedStorage :', watchedStorage);
+        // watchedStorage = JSON.parse(
+        //   localStorage.getItem(STORAGE_WATCHED_KEY)
+        // ).splice(i, 1);
+        // console.log(watchedStorage);
+        // localStorage.setItem(
+        //   STORAGE_WATCHED_KEY,
+        //   JSON.stringify(watchedStorage)
+        // );
+
+        console.log('id local:', watched[i].id);
+        console.log(
+          'responseCardDetails.data.id :',
+          responseCardDetails.data.id
+        );
+        console.log(+responseCardDetails.data.id === +watched[i].id);
+        return;
+      }
+    }
+  }
+
+  if (localStorage.getItem(STORAGE_WATCHED_KEY)) {
+    watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+    watchedStorage.push(responseCardDetails.data);
+    localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
+    return;
+  }
+  watchedStorage.push(responseCardDetails.data);
+  console.log(watchedStorage);
+  localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
 }
 
 export function onQueueClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM QUEUE';
-  button.style.backgroundColor = 'red';
-  button.style.outline = 'none';
-  button.style.borderColor = 'transparent';
-  button.style.color = 'var(--primary-text-color)';
+  button.classList.add('remove');
+  if (localStorage.getItem(STORAGE_QUEUE_KEY)) {
+    queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+    queueStorage.push(responseCardDetails.data);
+    localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
+    return;
+  }
+  queueStorage.push(responseCardDetails.data);
+  console.log(queueStorage);
+  localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
 }

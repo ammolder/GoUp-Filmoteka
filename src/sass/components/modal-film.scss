@@ -234,3 +234,15 @@
   align-items: center;
   justify-content: center;
 }
+
+.remove {
+  background-color: red;
+  outline: none;
+  border-color: transparent;
+  color: var(--primary-text-color);
+
+  &:hover,
+  &:focus {
+    background-color: rgb(216, 12, 12);
+  }
+}
