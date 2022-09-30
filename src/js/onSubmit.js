@@ -2,6 +2,14 @@
 import { renderGallery } from './renderList';
 import { getApi } from './searchApi';
 import { onClickCard } from './modalListeners';
+// IMPORT PRELOADER SPINNER
+import {preloaderAnimation} from './loader/preloaderSpinner'
+  preloaderAnimation()
+
+// IMPORT SUBMIT SPINNER
+
+import {displayLoading} from './loader/submitSpinner.js'
+import {hideLoading} from './loader/submitSpinner.js'
 
 const cardList = document.querySelector('.card__list');
 const form = document.querySelector('.header-search');
@@ -10,7 +18,7 @@ cardList.addEventListener('click', onClickCard);
 
 export async function onSubmitForm(evt) {
   evt.preventDefault();
-
+hideLoading()
   const searchName = evt.currentTarget.elements.querySearch.value;
   const response = await getApi(searchName);
 
