@@ -31,7 +31,7 @@ const database = getDatabase(app);
 const auth = getAuth(app);
 const refs = {
   onLogin: document.getElementById('login-sighUp'),
-  pageLibrary: document.querySelector('.link-library'),
+  pageLibrary: document.getElementById('firebase-library'),
   backdrop: document.querySelector('.backdrop-fr'),
   btnSighUpBtn: document.getElementById('sign-up-btn'),
   btnSighInBtn: document.getElementById('sign-in-btn'),
@@ -40,6 +40,7 @@ const refs = {
   buttonSelectInput: document.querySelector('.form-button'),
   closeFormLogin: document.querySelector('.form-login__close '),
   closeFormSighUp: document.querySelector('.form-sighUp__close'),
+  closeFormContainerButtom: document.getElementById('form-button__close'),
 };
 
 let loginUserFilmoteka = true;
@@ -47,10 +48,18 @@ refs.onLogin.addEventListener('submit', onSubmitUser);
 refs.pageLibrary.addEventListener('click', сheckingUser);
 refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
 refs.btnSighInBtn.addEventListener('click', onFormLogin);
-
 refs.btnSighUpBtn.addEventListener('click', onFormSighUp);
 refs.closeFormSighUp.addEventListener('click', onCloseFormSighUp);
 refs.formLoginUser.addEventListener('submit', onLoginUser);
+refs.closeFormContainerButtom.addEventListener(
+  'click',
+  closeFormContainerButtom
+);
+//закрітие модельного окна с кнопками вход и регистрация
+function closeFormContainerButtom() {
+  refs.backdrop.classList.add('hidden');
+}
+
 // при нажатии срабативает проверка на авторизацию
 function сheckingUser() {
   if (loginUserFilmoteka) {
@@ -144,3 +153,10 @@ async function onLoginUser(e) {
       alert('Попробуйте еще раз, такого пользователя нет');
     });
 }
+// const user = auth.currentUser;
+
+// if (user) {
+//   console.log(`Пользователь ${user} есть в системе`);
+// } else {
+//   console.log('No user is signed in');
+// }
