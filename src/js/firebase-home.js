@@ -11,7 +11,6 @@ import {
 } from 'firebase/auth';
 
 // Конфигурация Firebase вашего веб-приложения
-// Для Firebase JS SDK v7.20.0 и более поздних версий, measureId необязателен
 const firebaseConfig = {
   apiKey: 'AIzaSyC4axheHgy30RAlpQyWJSvsbT5mQm6T9AA',
   authDomain: 'goup-filmoteka.firebaseapp.com',
@@ -22,13 +21,14 @@ const firebaseConfig = {
   appId: '1:720228305884:web:3e134cf761d2d193e65d19',
   measurementId: 'G-7JJQJB9HNZ',
 };
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 //Инициализировать базу данных реального времени и получить ссылку на сервис
 const database = getDatabase(app);
 const auth = getAuth(app);
+
+//
 const refs = {
   onLogin: document.getElementById('login-sighUp'),
   pageLibrary: document.getElementById('firebase-library'),
@@ -43,7 +43,8 @@ const refs = {
   closeFormContainerButtom: document.getElementById('form-button__close'),
 };
 
-let loginUserFilmoteka = true;
+let loginUserFilmoteka = false;
+
 refs.onLogin.addEventListener('submit', onSubmitUser);
 refs.pageLibrary.addEventListener('click', сheckingUser);
 refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
@@ -62,13 +63,30 @@ function closeFormContainerButtom() {
 
 // при нажатии срабативает проверка на авторизацию
 function сheckingUser() {
-  if (loginUserFilmoteka) {
+  if (!loginUserFilmoteka) {
     refs.pageLibrary.setAttribute('href', '#');
     refs.backdrop.classList.remove('hidden');
-
     return;
   }
+  refs.pageLibrary.setAttribute('href', './library.html');
 }
+// добавление информации по входу в систему true или fasle
+function localStorageUserTrue(boolean) {
+  localStorage.setItem('my-loginUser', JSON.stringify({ loginUser: boolean }));
+}
+// function localStorageUserFalse(boolean) {
+//   localStorage.setItem('my-loginUser', JSON.stringify({ loginUser: boolean }));
+// }
+const dataSeve = JSON.parse(localStorage.getItem('my-loginUser'));
+//Проверка через localStorage вход на сайт
+if (loginUserFilmoteka === null) {
+  loginUserFilmoteka = false;
+  console.log(loginUserFilmoteka);
+} else {
+  loginUserFilmoteka = dataSeve.loginUser;
+  console.log(loginUserFilmoteka);
+}
+
 // кнопка закрытия формы для входа на сайт
 function onCloseFormLogin() {
   refs.backdrop.classList.add('hidden');
@@ -115,8 +133,9 @@ async function onSubmitUser(e) {
         email: email,
       });
       alert('Пользователь добавлен');
-      refs.backdrop.classList.add('hidden');
-      refs.buttonSelectInput.classList.remove('hidden');
+
+      refs.formLoginUser.classList.remove('hidden');
+
       refs.formSighUpUser.classList.add('hidden');
     })
     .catch(error => {
@@ -146,6 +165,9 @@ async function onLoginUser(e) {
       refs.buttonSelectInput.classList.remove('hidden');
       refs.formLoginUser.classList.add('hidden');
       refs.formLoginUser.reset();
+      loginUserFilmoteka = true;
+      localStorageUserTrue(loginUserFilmoteka);
+      return;
     })
     .catch(error => {
       const errorCode = error.code;
@@ -153,10 +175,3 @@ async function onLoginUser(e) {
       alert('Попробуйте еще раз, такого пользователя нет');
     });
 }
-// const user = auth.currentUser;
-
-// if (user) {
-//   console.log(`Пользователь ${user} есть в системе`);
-// } else {
-//   console.log('No user is signed in');
-// }
