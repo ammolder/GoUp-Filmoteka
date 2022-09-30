@@ -1,7 +1,4 @@
-
 import genres from '../../genres.json';
-
-
 
 export function findGenresOfMovie(ids) {
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
@@ -20,10 +17,10 @@ export function markupMovies(movies) {
       const date = new Date(release_date).getFullYear();
       if (poster_path) {
         return `
-      <li class="card" id="${id}">
-        <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="${title}" />
-        <div class="card__wrap">
-        <p class="card__titel">
+      <li class="card" data-id="${id}">
+        <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="${title}" data-id="${id}"/>
+        <div class="card__wrap" data-id="${id}">
+        <p class="card__titel" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -32,9 +29,9 @@ export function markupMovies(movies) {
   </li>`;
       }
       return `
-      <div class="card" id="${id}">
-        <img class="card__img" src="" alt="${title}" />
-        <p class="card__titel">
+      <div class="card" data-id="${id}">
+        <img class="card__img" src="" alt="${title}" data-id="${id}"/>
+        <p class="card__titel" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -44,6 +41,3 @@ export function markupMovies(movies) {
     })
     .join('');
 }
-
-
-

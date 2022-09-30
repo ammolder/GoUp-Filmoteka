@@ -6,6 +6,7 @@ cardList.addEventListener('click', onClickCard);
 
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
+  console.log(cardId);
   if (cardId) {
     const responseCardDetails = await getApiDetails(cardId);
     console.log(responseCardDetails.data);
