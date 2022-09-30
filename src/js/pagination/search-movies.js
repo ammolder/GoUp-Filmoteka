@@ -33,11 +33,12 @@ const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
 const formSearch = document.querySelector('.header-search');
 const galleryContainerMovies = document.querySelector('.gallery__box');
 
-
 let query = '';
 let page = 1;
 
-formSearch.addEventListener('submit', onSearchMovies);
+if (formSearch) {
+  formSearch.addEventListener('submit', onSearchMovies);
+}
 
 function onSearchMovies(event) {
   event.preventDefault();
@@ -50,11 +51,7 @@ function onSearchMovies(event) {
   //   return;
   // }
 
-
-
-  fetchMovies(query, page).then(({data})=> {
-    
-  
+  fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
       onResultSearchError();
     } else {
@@ -78,10 +75,7 @@ function onSearchMovies(event) {
       pagination(data.page, data.total_pages);
     }
   });
-
- 
 }
-
 
 export async function onSearchPaginationClick({ target }) {
   if (
@@ -96,7 +90,6 @@ export async function onSearchPaginationClick({ target }) {
   fetchSearchMoviesResultsAPI.query = `&query=${query}`;
   let response;
 
- 
   try {
     response = await fetchSearchMoviesResultsAPI.fetchMovies();
   } catch (err) {
@@ -109,12 +102,8 @@ export async function onSearchPaginationClick({ target }) {
   const galleryMarkup = renderCardMovies(response.data.results);
 
   pagination(response.data.page, response.data.total_pages);
-
-
 }
 
 // function clearGalleryMarkup() {
 //   galleryContainerMovies.innerHTML = '';
 // }
-
-
