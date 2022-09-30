@@ -69,6 +69,7 @@ function сheckingUser() {
     return;
   }
   refs.pageLibrary.setAttribute('href', './library.html');
+  return;
 }
 // добавление информации по входу в систему true или fasle
 function localStorageUserTrue(boolean) {
@@ -78,8 +79,9 @@ function localStorageUserTrue(boolean) {
 //   localStorage.setItem('my-loginUser', JSON.stringify({ loginUser: boolean }));
 // }
 const dataSeve = JSON.parse(localStorage.getItem('my-loginUser'));
+console.log(dataSeve);
 //Проверка через localStorage вход на сайт
-if (loginUserFilmoteka === null) {
+if (dataSeve === null) {
   loginUserFilmoteka = false;
   console.log(loginUserFilmoteka);
 } else {
@@ -167,6 +169,7 @@ async function onLoginUser(e) {
       refs.formLoginUser.reset();
       loginUserFilmoteka = true;
       localStorageUserTrue(loginUserFilmoteka);
+      window.location.href = './library.html';
       return;
     })
     .catch(error => {
