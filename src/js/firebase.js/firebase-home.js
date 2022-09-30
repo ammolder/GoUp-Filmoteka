@@ -48,18 +48,34 @@ const refs = {
 };
 
 let loginUserFilmoteka = false;
+if (onLogin) {
+  refs.onLogin.addEventListener('submit', onSubmitUser);
+}
+if (pageLibrary) {
+  refs.pageLibrary.addEventListener('click', сheckingUser);
+}
+if (closeFormLogin) {
+  refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
+}
+if (btnSighInBtn) {
+  refs.btnSighInBtn.addEventListener('click', onFormLogin);
+}
+if (btnSighUpBtn) {
+  refs.btnSighUpBtn.addEventListener('click', onFormSighUp);
+}
+if (closeFormSighUp) {
+  refs.closeFormSighUp.addEventListener('click', onCloseFormSighUp);
+}
+if (formLoginUser) {
+  refs.formLoginUser.addEventListener('submit', onLoginUser);
+}
+if (closeFormContainerButtom) {
+  refs.closeFormContainerButtom.addEventListener(
+    'click',
+    closeFormContainerButtom
+  );
+}
 
-refs.onLogin.addEventListener('submit', onSubmitUser);
-refs.pageLibrary.addEventListener('click', сheckingUser);
-refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
-refs.btnSighInBtn.addEventListener('click', onFormLogin);
-refs.btnSighUpBtn.addEventListener('click', onFormSighUp);
-refs.closeFormSighUp.addEventListener('click', onCloseFormSighUp);
-refs.formLoginUser.addEventListener('submit', onLoginUser);
-refs.closeFormContainerButtom.addEventListener(
-  'click',
-  closeFormContainerButtom
-);
 if (refs.exitOk) {
   refs.exitOk.addEventListener('click', removeUserLocalStorage);
 }
