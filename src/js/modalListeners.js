@@ -51,8 +51,8 @@ export function keyDown(evt) {
   }
 }
 
-const STORAGE_WATCHED_KEY = 'watched-films-lib';
-const STORAGE_QUEUE_KEY = 'queue-films-lib';
+export const STORAGE_WATCHED_KEY = 'watched-films-lib';
+export const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
 export function onWatchedClick(evt) {
   button = evt.currentTarget;
@@ -63,26 +63,18 @@ export function onWatchedClick(evt) {
   if (watchedParsed !== null) {
     for (let i = 0; i < watchedParsed.length; i += 1) {
       if (+responseCardDetails.data.id === +watchedParsed[i].id) {
-        // console.log(i);
-        // console.log('watchedStorage :', watchedStorage);
-        // console.log(
-        //   ' watchedS parsed:',
-        //   (watchedStorage = JSON.parse(
-        //     localStorage.getItem(STORAGE_WATCHED_KEY)
-        //   ))
-        // );
-        // // watchedStorage = JSON.parse(
-        // //   localStorage.getItem(STORAGE_WATCHED_KEY)
-        // // ).splice(i, 1);
-        // // console.log(watchedStorage);
-        // // localStorage.setItem(
-        // //   STORAGE_WATCHED_KEY,
-        // //   JSON.stringify(watchedStorage)
-        // // );
-
-        // console.log('id local:', watchedParsed[i].id);
-        // console.log('response.id :', responseCardDetails.data.id);
-        // console.log(+responseCardDetails.data.id === +watchedParsed[i].id);
+        watchedStorage = JSON.parse(
+          localStorage.getItem(STORAGE_WATCHED_KEY)
+        ).find((film, index) => {
+          if (+responseCardDetails.data.id === +film.id) {
+            console.log(index);
+            watchedStorage.splice(index, 1);
+            localStorage.setItem(
+              STORAGE_WATCHED_KEY,
+              JSON.stringify(watchedStorage)
+            );
+          }
+        });
         return;
       }
     }
@@ -107,6 +99,18 @@ export function onQueueClick(evt) {
   if (queueParsed !== null) {
     for (let i = 0; i < queueParsed.length; i += 1) {
       if (+responseCardDetails.data.id === +queueParsed[i].id) {
+        queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY)).find(
+          (film, index) => {
+            if (+responseCardDetails.data.id === +film.id) {
+              console.log(index);
+              queueStorage.splice(index, 1);
+              localStorage.setItem(
+                STORAGE_QUEUE_KEY,
+                JSON.stringify(queueStorage)
+              );
+            }
+          }
+        );
         return;
       }
     }
