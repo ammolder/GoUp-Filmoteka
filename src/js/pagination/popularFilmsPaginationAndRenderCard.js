@@ -65,13 +65,14 @@ export async function onTrendingPaginationClick({ target }) {
 
   try {
     response = await fetchTrandingMovieAPI.fetchMovies();
+     window.scrollTo(0, 0);
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
   }
 
   const galleryMarkup = markupMovies(response.data.results);
-  // clearGalleryMarkup();
+
   renderGalleryMarkup(galleryMarkup);
 
   pagination(response.data.page, response.data.total_pages);
@@ -79,6 +80,9 @@ export async function onTrendingPaginationClick({ target }) {
 
 function renderGalleryMarkup(markup) {
   refs.gallery.innerHTML = markup;
+}
+function clearGalleryMarkup() {
+  galleryContainerMovies.innerHTML = '';
 }
 
 export function findGenresOfMovie(ids) {
@@ -92,6 +96,8 @@ export function findGenresOfMovie(ids) {
   }
   return movieGenres.join(', ');
 }
+const galleryContainerMovies = document.querySelector('.card__list');
+
 export function markupMovies(movies) {
   return movies
     .map(({ poster_path, title, genre_ids, release_date, id }) => {
@@ -107,7 +113,8 @@ export function markupMovies(movies) {
             genre_ids
           )} | ${date}</span>
         </p> </div>
-  </li>`;
+  </li>`
+          ;
       }
       return `
       <div class="card" data-id="${id}">
@@ -121,4 +128,5 @@ export function markupMovies(movies) {
   </div>`;
     })
     .join('');
+  
 }

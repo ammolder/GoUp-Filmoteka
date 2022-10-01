@@ -176,19 +176,26 @@
   }
 }
 
-.error-container {
-  position: absolute;
-  margin: 0;
-  width: 100%;
-  align-items: center;
-  text-align: center;
-  margin-top: 20px;
-  top: -100px;
-  left: 0;
-  color: red;
-}
+// .error-container {
+//   position: absolute;
+//   margin: 0;
+//   width: 100%;
+//   align-items: center;
+//   text-align: center;
+//   margin-top: 20px;
+//   top: -100px;
+//   left: 0;
+//   color: red;
+// }
 .request-paragraph {
   display: block;
   font-size: 14px;
   line-height: 1.14;
-}
+    color: red;
+    position: absolute;
+    left: 35%;
+@media screen and (max-width: 767px) {
+    left: 0;
+  }
+    }
+

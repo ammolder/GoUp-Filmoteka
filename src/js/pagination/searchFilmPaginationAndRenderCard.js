@@ -30,6 +30,7 @@ const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
 );
 
 const formSearch = document.querySelector('.header-search');
+const errorText = document.querySelector('.request-paragraph');
 
 let query = '';
 let page = 1;
@@ -41,21 +42,27 @@ function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
-  // query = event.currentTarget.elements.text.value;
+ 
 
-  // if (!query) {
-  //   onResultSearchError();
-  //   return;
-  // }
+  if (!query) {
+    errorText.classList.remove('visually-hidden');
+    setTimeout(() => {
+            errorText.classList.add('visually-hidden');
+          }, 3000);
+    return;
+  }
 
   fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
-      onResultSearchError();
+      errorText.classList.remove('visually-hidden');
+    setTimeout(() => {
+            errorText.classList.add('visually-hidden');
+          }, 3000);
     } else {
-      // clearGalleryMarkup();
+      clearGalleryMarkup();
 
       renderCardMovies(data.results);
-
+ 
       const paginationItemsContainer = document.querySelector(
         '.pagination-container'
       );
@@ -89,21 +96,22 @@ export async function onSearchPaginationClick({ target }) {
 
   try {
     response = await fetchSearchMoviesResultsAPI.fetchMovies();
+  
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
   }
 
-  // clearGalleryMarkup();
+  clearGalleryMarkup();
 
   const galleryMarkup = renderCardMovies(response.data.results);
 
   pagination(response.data.page, response.data.total_pages);
 }
 
-// function clearGalleryMarkup() {
-//   galleryContainerMovies.innerHTML = '';
-// }
+function clearGalleryMarkup() {
+  galleryContainerMovies.innerHTML = '';
+}
 export function findGenresOfMovie(ids) {
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
   const movieGenres = arr.map(el => el.name);
@@ -151,6 +159,6 @@ function renderCardMovies(movies) {
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
+ window.scrollTo(0, 0);
 
-  // galleryContainerMovies.insertAdjacentHTML('beforeend', markup);
 }
