@@ -22,15 +22,15 @@
       <h1 class="form-sighUp__title">Sing up</h1>
       <input
         type="text"
-        id="username"
+        id="usernameSighUp"
         name="username"
         placeholder="User name"
       />
-      <input type="email" id="email" name="email" placeholder="E-mail" />
+      <input type="email" id="emailSighUp" name="email" placeholder="E-mail" />
       <input
         type="password"
         name="password"
-        id="password"
+        id="passwordSighUp"
         placeholder="password"
       />
       <input type="submit" name="signep_submit" id="sighUp" value="OK" />
@@ -38,7 +38,7 @@
     <!-- форма входа -->
     <form class="form-login hidden" id="login-box">
       <button type="button" class="form-login__close"></button>
-      <h1 class="form-login__title">Sing up</h1>
+      <h1 class="form-login__title">Login</h1>
       <input type="email" id="email" name="email" placeholder="E-mail" />
       <input
         type="password"
@@ -53,11 +53,15 @@
 
 <div class="login-user" id="loginUser">
   <p class="login-user__text">
-    user: <span class="login-user__name">Гость</span>
+    <span class="login-user__name">Guest</span>
   </p>
+
   <button class="login-user__btn" type="button">
-    <svg class="login-user__icon" width="30" height="30">
-      <use href="./image/close.svg#icon-enter"></use>
+    <svg class="login-user__icon enter" width="30" height="30">
+      <use href="./image/symbol-defs.svg#icon-enter"></use>
+    </svg>
+    <svg class="login-user__icon check hidden" width="30" height="30">
+      <use href="./image/symbol-defs.svg#icon-user-check"></use>
     </svg>
   </button>
 </div>
