@@ -43,27 +43,26 @@ function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
- 
 
   if (!query) {
     errorText.classList.remove('visually-hidden');
     setTimeout(() => {
-            errorText.classList.add('visually-hidden');
-          }, 3000);
+      errorText.classList.add('visually-hidden');
+    }, 3000);
     return;
   }
 
   fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
       errorText.classList.remove('visually-hidden');
-    setTimeout(() => {
-            errorText.classList.add('visually-hidden');
-          }, 3000);
+      setTimeout(() => {
+        errorText.classList.add('visually-hidden');
+      }, 3000);
     } else {
       clearGalleryMarkup();
 
       renderCardMovies(data.results);
- 
+
       const paginationItemsContainer = document.querySelector(
         '.pagination-container'
       );
@@ -97,7 +96,6 @@ export async function onSearchPaginationClick({ target }) {
 
   try {
     response = await fetchSearchMoviesResultsAPI.fetchMovies();
-  
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
@@ -137,7 +135,7 @@ function renderCardMovies(movies) {
            <div class="card" data-id="${id}" id="${id}">
         <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
 " data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
           ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -149,7 +147,7 @@ function renderCardMovies(movies) {
            <div class="card" data-id="${id}" id="${id}">
         <img class="card__img"  src="${image}" alt="${title}
 " data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
           ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -160,11 +158,9 @@ function renderCardMovies(movies) {
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
-
  window.scrollTo({
   top: 100,
   left: 100,
   behavior: 'smooth'
 });
-
 }

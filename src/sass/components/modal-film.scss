@@ -149,17 +149,20 @@
   color: #000000;
 }
 .film__rating--orange {
+  padding-top: 2px;
   padding-left: 10px;
   padding-right: 10px;
   color: var(--primary-text-color);
   background-color: var(--btn-accent-color);
   border-radius: 5px;
+  margin-right: 4px;
 }
 .film__rating--divider {
   margin-right: 3px;
 }
 
 .film__rating--grey {
+  padding-top: 2px;
   padding-left: 10px;
   padding-right: 10px;
   color: var(--primary-text-color-dark);
@@ -237,4 +240,16 @@
 .queue-btn {
   align-items: center;
   justify-content: center;
+}
+
+.remove {
+  background-color: red;
+  outline: none;
+  border-color: transparent;
+  color: var(--primary-text-color);
+
+  &:hover,
+  &:focus {
+    background-color: rgb(216, 12, 12);
+  }
 }

@@ -1,8 +1,10 @@
-import { onClickModal, onQueueClick } from './modalListeners';
+import {
+  onClickModal,
+  onQueueClick,
+  onWatchedClick,
+  onBtnCloseClick,
+} from './modalListeners';
 import { keyDown } from './modalListeners';
-import { onBtnCloseClick } from './modalListeners';
-import { onWatchedClick } from './modalListeners';
-import { onQueueClick } from './modalListeners';
 // const container = document.querySelector('.container');
 const body = document.querySelector('body');
 export function modal(data) {

@@ -1,4 +1,3 @@
-import * as myModule from './js/firebase-components';
 import * as myModule from './js/getFIlmDetails';
 import * as myModule from './js/modalListeners';
 import * as myModule from './js/modalRender';

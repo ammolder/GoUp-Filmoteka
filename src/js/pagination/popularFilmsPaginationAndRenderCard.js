@@ -110,17 +110,16 @@ export function markupMovies(movies) {
       const date = new Date(release_date).getFullYear();
       if (poster_path) {
         return `
-      <li class="card" data-id="${id}">
+      <li class="card__item" data-id="${id}">
         <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="${title}" data-id="${id}"/>
         <div class="card__wrap" data-id="${id}">
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
           )} | ${date}</span>
         </p> </div>
-  </li>`
-          ;
+  </li>`;
       }
       return `
       <div class="card" data-id="${id}">
@@ -134,5 +133,4 @@ export function markupMovies(movies) {
   </div>`;
     })
     .join('');
-  
 }
