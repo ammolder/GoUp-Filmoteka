@@ -1,8 +1,10 @@
-import { onClickModal, onQueueClick } from './modalListeners';
+import {
+  onClickModal,
+  onQueueClick,
+  onWatchedClick,
+  onBtnCloseClick,
+} from './modalListeners';
 import { keyDown } from './modalListeners';
-import { onBtnCloseClick } from './modalListeners';
-import { onWatchedClick } from './modalListeners';
-import { onQueueClick } from './modalListeners';
 // const container = document.querySelector('.container');
 const body = document.querySelector('body');
 export function modal(data) {
@@ -10,6 +12,7 @@ export function modal(data) {
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
   const modalMarckUp = `<div class="backdrop">
+  
             <div class="modal">
             <button class="modal-btn" type="button" data-modal-close>
         </button>
@@ -51,6 +54,11 @@ export function modal(data) {
 
   body.insertAdjacentHTML('afterbegin', modalMarckUp);
   const modalOverlay = document.querySelector('.backdrop');
+
+  modalOverlay.style.backgroundImage = `url(
+    https://image.tmdb.org/t/p/original/${data.backdrop_path}
+  )`;
+
   modalOverlay.addEventListener('click', onClickModal);
   document.addEventListener('keydown', keyDown);
   const btnClose = document.querySelector('.modal-btn');

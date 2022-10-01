@@ -11,7 +11,10 @@
   width: 100%;
   height: 100%;
   opacity: 1;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   padding: 20px 20px 38px 20px;
 }
 
@@ -28,6 +31,7 @@
   padding: 48px 20px 40px 20px;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 20px;
 
   @media screen and (min-width: $tablet) {
     position: absolute;
@@ -145,17 +149,20 @@
   color: #000000;
 }
 .film__rating--orange {
+  padding-top: 2px;
   padding-left: 10px;
   padding-right: 10px;
   color: var(--primary-text-color);
   background-color: var(--btn-accent-color);
   border-radius: 5px;
+  margin-right: 4px;
 }
 .film__rating--divider {
   margin-right: 3px;
 }
 
 .film__rating--grey {
+  padding-top: 2px;
   padding-left: 10px;
   padding-right: 10px;
   color: var(--primary-text-color-dark);
@@ -233,4 +240,16 @@
 .queue-btn {
   align-items: center;
   justify-content: center;
+}
+
+.remove {
+  background-color: red;
+  outline: none;
+  border-color: transparent;
+  color: var(--primary-text-color);
+
+  &:hover,
+  &:focus {
+    background-color: rgb(216, 12, 12);
+  }
 }
