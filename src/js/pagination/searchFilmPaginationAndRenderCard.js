@@ -1,4 +1,5 @@
 import axios from 'axios';
+import image from '../../image/card.jpg'
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -146,7 +147,7 @@ function renderCardMovies(movies) {
       }
       return `
            <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img"  src="" alt="${title}
+        <img class="card__img"  src="${image}" alt="${title}
 " data-id="${id}"/>
         <p class="card__titel" data-id="${id}">
           ${title} <br />
@@ -159,6 +160,11 @@ function renderCardMovies(movies) {
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
- window.scrollTo(0, 0);
+
+ window.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: 'smooth'
+});
 
 }
