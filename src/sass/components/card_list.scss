@@ -21,18 +21,22 @@
   }
 }
 
-.card-item {
-  border-radius: 5px;
+.card__item {
   max-width: 100%;
   transition: var(--timing-function);
 }
 
 .card__item:hover,
 .card__item:focus {
+  border-radius: 5px;
+  box-shadow: 2px 4px 22px 0px rgba(99, 87, 99, 0.57);
+  transition: box-shadow 250ms var(--timing-function),
+    scale 250ms var(--timing-function);
   transform: scale(1.05);
 }
 
 .card__img {
+  border-radius: 5px 5px 0 0;
   @media screen and (max-width: 479px) {
     height: 88%;
   }
