@@ -1,8 +1,8 @@
 import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
 
-const STORAGE_WATCHED_KEY = 'watched-films-lib';
-const STORAGE_QUEUE_KEY = 'queue-films-lib';
+export const STORAGE_WATCHED_KEY = 'watched-films-lib';
+export const STORAGE_QUEUE_KEY = 'queue-films-lib';
 const cardList = document.querySelector('.card__list');
 
 let responseCardDetails = null;
