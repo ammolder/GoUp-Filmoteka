@@ -3,6 +3,7 @@ import genres from '../genres.json';
 import { onClickCard } from '..';
 
 const gallery = document.querySelector('.card__list');
+const gallery_library = document.querySelector('.card__list-library');
 
 export function renderGallery(data) {
   const markupGallery = data
@@ -31,5 +32,10 @@ export function renderGallery(data) {
     </li>`;
     })
     .join('');
-  gallery.innerHTML = markupGallery;
+  if (gallery) {
+    gallery.innerHTML = markupGallery;
+  }
+  if (gallery_library) {
+    gallery_library.innerHTML = markupGallery;
+  }
 }

@@ -1,9 +1,10 @@
 import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
 
-const cardList = document.querySelector('.card__list');
-cardList.addEventListener('click', onClickCard);
-
+const cardList = document.querySelector('.card__list-library');
+if (cardList) {
+  cardList.addEventListener('click', onClickCard);
+}
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
   if (cardId) {

@@ -49,20 +49,43 @@ const refs = {
 
 let loginUserFilmoteka = false;
 
-refs.onLogin.addEventListener('submit', onSubmitUser);
-refs.pageLibrary.addEventListener('click', сheckingUser);
-refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
-refs.btnSighInBtn.addEventListener('click', onFormLogin);
-refs.btnSighUpBtn.addEventListener('click', onFormSighUp);
-refs.closeFormSighUp.addEventListener('click', onCloseFormSighUp);
-refs.formLoginUser.addEventListener('submit', onLoginUser);
-refs.closeFormContainerButtom.addEventListener(
-  'click',
-  closeFormContainerButtom
-);
-refs.exitOk.addEventListener('click', removeUserLocalStorage);
-refs.exitNot.addEventListener('click', addClasModalUserLocalStorage);
-refs.iconLoginUser.addEventListener('click', openModalExit);
+if (refs.onLogin) {
+  refs.onLogin.addEventListener('submit', onSubmitUser);
+}
+if (refs.pageLibrary) {
+  refs.pageLibrary.addEventListener('click', сheckingUser);
+}
+if (refs.closeFormLogin) {
+  refs.closeFormLogin.addEventListener('click', onCloseFormLogin);
+}
+if (refs.btnSighInBtn) {
+  refs.btnSighInBtn.addEventListener('click', onFormLogin);
+}
+if (refs.btnSighUpBtn) {
+  refs.btnSighUpBtn.addEventListener('click', onFormSighUp);
+}
+if (refs.closeFormSighUp) {
+  refs.closeFormSighUp.addEventListener('click', onCloseFormSighUp);
+}
+if (refs.formLoginUser) {
+  refs.formLoginUser.addEventListener('submit', onLoginUser);
+}
+if (refs.closeFormContainerButtom) {
+  refs.closeFormContainerButtom.addEventListener(
+    'click',
+    closeFormContainerButtom
+  );
+}
+
+if (refs.exitOk) {
+  refs.exitOk.addEventListener('click', removeUserLocalStorage);
+}
+if (refs.exitNot) {
+  refs.exitNot.addEventListener('click', addClasModalUserLocalStorage);
+}
+if (refs.iconLoginUser) {
+  refs.iconLoginUser.addEventListener('click', openModalExit);
+}
 
 //закрітие модельного окна с кнопками вход и регистрация
 function closeFormContainerButtom() {

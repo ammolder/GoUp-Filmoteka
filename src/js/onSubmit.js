@@ -5,9 +5,12 @@ import { onClickCard } from './modalListeners';
 
 const cardList = document.querySelector('.card__list');
 const form = document.querySelector('.header-search');
-form.addEventListener('submit', onSubmitForm);
-cardList.addEventListener('click', onClickCard);
-
+if (form) {
+  form.addEventListener('submit', onSubmitForm);
+}
+if (cardList) {
+  cardList.addEventListener('click', onClickCard);
+}
 export async function onSubmitForm(evt) {
   evt.preventDefault();
 
