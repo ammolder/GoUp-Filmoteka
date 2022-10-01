@@ -32,7 +32,7 @@ const auth = getAuth(app);
 const refs = {
   onLogin: document.getElementById('login-sighUp'),
   pageLibrary: document.getElementById('firebase-library'),
-  backdrop: document.querySelector('.backdrop-fr'),
+  backdrop: document.querySelector('.backdrop-fr'), // бекдроп модалки регистрации и входа
   btnSighUpBtn: document.getElementById('sign-up-btn'),
   btnSighInBtn: document.getElementById('sign-in-btn'),
   formSighUpUser: document.getElementById('login-sighUp'),
@@ -41,10 +41,13 @@ const refs = {
   closeFormLogin: document.querySelector('.form-login__close '),
   closeFormSighUp: document.querySelector('.form-sighUp__close'),
   closeFormContainerButtom: document.getElementById('form-button__close'),
-  iconLoginUser: document.querySelector('.login-user__icon'),
-  userExit: document.querySelector('.user-exit'),
+  iconLoginUser: document.querySelector('.login-user__btn'),
+  iconUserEnter: document.querySelector('.enter'),
+  iconUserСheck: document.querySelector('.check'),
+  userExit: document.querySelector('.user-exit'), //вход и выход выбор
   exitOk: document.querySelector('.user-exit__ok'),
   exitNot: document.querySelector('.user-exit__not'),
+  loginUser: document.querySelector('.login-user__name'),
 };
 
 let loginUserFilmoteka = false;
@@ -76,7 +79,6 @@ if (refs.closeFormContainerButtom) {
     closeFormContainerButtom
   );
 }
-
 if (refs.exitOk) {
   refs.exitOk.addEventListener('click', removeUserLocalStorage);
 }
@@ -94,6 +96,7 @@ function closeFormContainerButtom() {
 // разлогинится пользователю на сайте по клику на кнопку OK
 function removeUserLocalStorage() {
   localStorage.removeItem('my-loginUser');
+  localStorage.removeItem('my-email');
   loginUserFilmoteka = false;
   window.location.href = './index.html';
 }
@@ -103,6 +106,14 @@ function addClasModalUserLocalStorage() {
 
 function openModalExit() {
   refs.userExit.classList.remove('hidden');
+  window.addEventListener('keydown', onClickModal); // добавляем слушателя на клавиатуру
+}
+
+function onClickModal(e) {
+  if (e.key === 'Escape') {
+    refs.userExit.classList.add('hidden');
+    window.removeEventListener('keydown', onClickModal); // удаляем слушателя з клавиатури
+  }
 }
 
 // при нажатии срабативает проверка на авторизацию
@@ -110,6 +121,7 @@ function сheckingUser() {
   if (!loginUserFilmoteka) {
     refs.pageLibrary.setAttribute('href', '#');
     refs.backdrop.classList.remove('hidden');
+    window.addEventListener('keydown', onClickModalForm); // удаляем слушателя з клавиатури
     return;
   }
   refs.pageLibrary.setAttribute('href', './library.html');
@@ -119,16 +131,50 @@ function сheckingUser() {
 function localStorageUserTrue(boolean) {
   localStorage.setItem('my-loginUser', JSON.stringify({ loginUser: boolean }));
 }
-
 const dataSeve = JSON.parse(localStorage.getItem('my-loginUser'));
-console.log(dataSeve);
+//добавление email в localStorage
+function addMailLocalStorage(email) {
+  localStorage.setItem('my-email', JSON.stringify({ email: email }));
+}
+const loginPage = JSON.parse(localStorage.getItem('my-email'));
 //Проверка через localStorage вход на сайт
 if (dataSeve === null) {
   loginUserFilmoteka = false;
-  console.log(loginUserFilmoteka);
+  if (loginPage === null) {
+    refs.loginUser.textContent = 'Guest';
+    refs.iconUserEnter.classList.remove('hidden');
+    refs.iconUserСheck.classList.add('hidden');
+  } else {
+    if (refs.loginUser) {
+      refs.loginUser.textContent = loginPage.email;
+    }
+    if (refs.iconUserEnter) {
+      refs.iconUserEnter.classList.add('hidden');
+    }
+    if (refs.iconUserСheck) {
+      refs.iconUserСheck.classList.remove('hidden');
+    }
+  }
 } else {
   loginUserFilmoteka = dataSeve.loginUser;
-  console.log(loginUserFilmoteka);
+  if (loginPage === null) {
+    refs.loginUser.textContent = 'Guest';
+    refs.iconUserEnter.classList.remove('hidden');
+    refs.iconUserСheck.classList.add('hidden');
+  } else {
+    if (refs.loginUser) {
+      refs.loginUser.textContent = loginPage.email;
+    }
+    if (refs.iconUserEnter) {
+      refs.iconUserEnter.classList.add('hidden');
+    }
+    if (refs.iconUserEnter) {
+      refs.iconUserEnter.classList.add('hidden');
+    }
+    if (refs.iconUserСheck) {
+      refs.iconUserСheck.classList.remove('hidden');
+    }
+  }
 }
 
 // кнопка закрытия формы для входа на сайт
@@ -161,9 +207,6 @@ async function onSubmitUser(e) {
   const email = e.target.elements.email.value;
   const password = e.target.elements.password.value;
 
-  console.log(username);
-  console.log(email);
-  console.log(password);
   //Перевірка на заповненість полів форми
   if (!email || !password || !username) {
     Notify.info('Not all fields are filled in!');
@@ -217,6 +260,7 @@ async function onLoginUser(e) {
       refs.formLoginUser.reset();
       loginUserFilmoteka = true;
       localStorageUserTrue(loginUserFilmoteka);
+      addMailLocalStorage(email);
       window.location.href = './library.html';
       return;
     })
@@ -226,4 +270,11 @@ async function onLoginUser(e) {
       Notify.warning('You entered the wrong email or password!');
       console.log(`Ошибка ${errorCode} и ${errorMessage} `);
     });
+}
+
+function onClickModalForm(e) {
+  if (e.key === 'Escape') {
+    refs.backdrop.classList.add('hidden');
+    window.removeEventListener('keydown', onClickModalForm); // удаляем слушателя з клавиатури
+  }
 }

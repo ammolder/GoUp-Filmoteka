@@ -1,4 +1,5 @@
 import axios from 'axios';
+import image from '../../image/card.jpg'
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -30,6 +31,7 @@ const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
 );
 
 const formSearch = document.querySelector('.header-search');
+const errorText = document.querySelector('.request-paragraph');
 
 let query = '';
 let page = 1;
@@ -41,18 +43,23 @@ function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
-  // query = event.currentTarget.elements.text.value;
 
-  // if (!query) {
-  //   onResultSearchError();
-  //   return;
-  // }
+  if (!query) {
+    errorText.classList.remove('visually-hidden');
+    setTimeout(() => {
+      errorText.classList.add('visually-hidden');
+    }, 3000);
+    return;
+  }
 
   fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
-      onResultSearchError();
+      errorText.classList.remove('visually-hidden');
+      setTimeout(() => {
+        errorText.classList.add('visually-hidden');
+      }, 3000);
     } else {
-      // clearGalleryMarkup();
+      clearGalleryMarkup();
 
       renderCardMovies(data.results);
 
@@ -94,16 +101,16 @@ export async function onSearchPaginationClick({ target }) {
     console.log('ERROR CODE: ', err.code);
   }
 
-  // clearGalleryMarkup();
+  clearGalleryMarkup();
 
   const galleryMarkup = renderCardMovies(response.data.results);
 
   pagination(response.data.page, response.data.total_pages);
 }
 
-// function clearGalleryMarkup() {
-//   galleryContainerMovies.innerHTML = '';
-// }
+function clearGalleryMarkup() {
+  galleryContainerMovies.innerHTML = '';
+}
 export function findGenresOfMovie(ids) {
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
   const movieGenres = arr.map(el => el.name);
@@ -128,7 +135,7 @@ function renderCardMovies(movies) {
            <div class="card" data-id="${id}" id="${id}">
         <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
 " data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
           ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -138,9 +145,9 @@ function renderCardMovies(movies) {
       }
       return `
            <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img"  src="" alt="${title}
+        <img class="card__img"  src="${image}" alt="${title}
 " data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
           ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -151,6 +158,9 @@ function renderCardMovies(movies) {
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
-
-  // galleryContainerMovies.insertAdjacentHTML('beforeend', markup);
+ window.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: 'smooth'
+});
 }
