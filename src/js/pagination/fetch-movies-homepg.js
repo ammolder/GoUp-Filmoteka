@@ -10,7 +10,7 @@ export default class NewApi {
 
   async fetchMovies() {
     const response = await axios.get(
-      `${URL}/3/trending/movie/day?api_key=${KEY}&page=1`
+      `${URL}/3/trending/movie/week?api_key=${KEY}&page=1`
     );
     this.incrementPage();
 

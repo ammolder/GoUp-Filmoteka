@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { renderCardMovies } from './render-movies-card';
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
-
-import { onTrendingPaginationClick } from './append-movie-cards';
+import genres from '../../genres.json';
+import { onTrendingPaginationClick } from './popularFilmsPaginationAndRenderCard';
 
 export const APIEndPoints = {
   trendingMovie: '/3/trending/movie/day',
@@ -31,14 +30,13 @@ const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
 );
 
 const formSearch = document.querySelector('.header-search');
-const galleryContainerMovies = document.querySelector('.gallery__box');
-
 
 let query = '';
 let page = 1;
 
-formSearch.addEventListener('submit', onSearchMovies);
-
+if (formSearch) {
+  formSearch.addEventListener('submit', onSearchMovies);
+}
 function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
@@ -50,11 +48,7 @@ function onSearchMovies(event) {
   //   return;
   // }
 
-
-
-  fetchMovies(query, page).then(({data})=> {
-    
-  
+  fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
       onResultSearchError();
     } else {
@@ -78,10 +72,7 @@ function onSearchMovies(event) {
       pagination(data.page, data.total_pages);
     }
   });
-
- 
 }
-
 
 export async function onSearchPaginationClick({ target }) {
   if (
@@ -96,7 +87,6 @@ export async function onSearchPaginationClick({ target }) {
   fetchSearchMoviesResultsAPI.query = `&query=${query}`;
   let response;
 
- 
   try {
     response = await fetchSearchMoviesResultsAPI.fetchMovies();
   } catch (err) {
@@ -109,12 +99,58 @@ export async function onSearchPaginationClick({ target }) {
   const galleryMarkup = renderCardMovies(response.data.results);
 
   pagination(response.data.page, response.data.total_pages);
-
-
 }
 
 // function clearGalleryMarkup() {
 //   galleryContainerMovies.innerHTML = '';
 // }
+export function findGenresOfMovie(ids) {
+  const arr = ids.flatMap(id => genres.filter(element => element.id === id));
+  const movieGenres = arr.map(el => el.name);
+  if (movieGenres.length > 2) {
+    const removedGenres = movieGenres.splice(0, 2);
+    removedGenres.push('Other');
 
+    return removedGenres.join(', ');
+  }
+  return movieGenres.join(', ');
+}
 
+const galleryContainerMovies = document.querySelector('.card__list');
+
+function renderCardMovies(movies) {
+  const markup = movies
+    .map(movie => {
+      const { poster_path, title, genre_ids, release_date, id } = movie;
+      const date = new Date(release_date).getFullYear();
+      if (poster_path) {
+        return `
+           <div class="card" data-id="${id}" id="${id}">
+        <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
+" data-id="${id}"/>
+        <p class="card__titel" data-id="${id}">
+          ${title} <br />
+          <span class="card__text">${findGenresOfMovie(
+            genre_ids
+          )} | ${date}</span>
+        </p>
+      </div>`;
+      }
+      return `
+           <div class="card" data-id="${id}" id="${id}">
+        <img class="card__img"  src="" alt="${title}
+" data-id="${id}"/>
+        <p class="card__titel" data-id="${id}">
+          ${title} <br />
+          <span class="card__text">${findGenresOfMovie(
+            genre_ids
+          )} | ${date}</span>
+        </p>
+      </div>`;
+    })
+    .join('');
+
+  galleryContainerMovies.innerHTML = markup;
+
+  // galleryContainerMovies.insertAdjacentHTML('beforeend', markup);
+}
