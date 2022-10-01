@@ -2,11 +2,18 @@ import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
 
 const cardList = document.querySelector('.card__list');
-cardList.addEventListener('click', onClickCard);
+
 let responseCardDetails = null;
 let watchedStorage = [];
 let queueStorage = [];
 
+const cardListLibrary = document.querySelector('.card__list-library');
+if (cardList) {
+  cardList.addEventListener('click', onClickCard);
+}
+if (cardListLibrary) {
+  cardListLibrary.addEventListener('click', onClickCard);
+}
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
   if (cardId) {
