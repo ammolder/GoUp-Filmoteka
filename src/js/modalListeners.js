@@ -51,28 +51,31 @@ export function onWatchedClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM WATCHED';
   button.classList.add('remove');
-  let watched = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
-  console.log(watched);
-  if (watched !== null) {
-    for (let i = 0; i < watched.length; i += 1) {
-      if (+responseCardDetails.data.id === +watched[i].id) {
-        console.log(i);
-        console.log('watchedStorage :', watchedStorage);
-        // watchedStorage = JSON.parse(
-        //   localStorage.getItem(STORAGE_WATCHED_KEY)
-        // ).splice(i, 1);
-        // console.log(watchedStorage);
-        // localStorage.setItem(
-        //   STORAGE_WATCHED_KEY,
-        //   JSON.stringify(watchedStorage)
+  let watchedParsed = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+  console.log(watchedParsed);
+  if (watchedParsed !== null) {
+    for (let i = 0; i < watchedParsed.length; i += 1) {
+      if (+responseCardDetails.data.id === +watchedParsed[i].id) {
+        // console.log(i);
+        // console.log('watchedStorage :', watchedStorage);
+        // console.log(
+        //   ' watchedS parsed:',
+        //   (watchedStorage = JSON.parse(
+        //     localStorage.getItem(STORAGE_WATCHED_KEY)
+        //   ))
         // );
+        // // watchedStorage = JSON.parse(
+        // //   localStorage.getItem(STORAGE_WATCHED_KEY)
+        // // ).splice(i, 1);
+        // // console.log(watchedStorage);
+        // // localStorage.setItem(
+        // //   STORAGE_WATCHED_KEY,
+        // //   JSON.stringify(watchedStorage)
+        // // );
 
-        console.log('id local:', watched[i].id);
-        console.log(
-          'responseCardDetails.data.id :',
-          responseCardDetails.data.id
-        );
-        console.log(+responseCardDetails.data.id === +watched[i].id);
+        // console.log('id local:', watchedParsed[i].id);
+        // console.log('response.id :', responseCardDetails.data.id);
+        // console.log(+responseCardDetails.data.id === +watchedParsed[i].id);
         return;
       }
     }
@@ -93,6 +96,14 @@ export function onQueueClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM QUEUE';
   button.classList.add('remove');
+  let queueParsed = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+  if (queueParsed !== null) {
+    for (let i = 0; i < queueParsed.length; i += 1) {
+      if (+responseCardDetails.data.id === +queueParsed[i].id) {
+        return;
+      }
+    }
+  }
   if (localStorage.getItem(STORAGE_QUEUE_KEY)) {
     queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
     queueStorage.push(responseCardDetails.data);
