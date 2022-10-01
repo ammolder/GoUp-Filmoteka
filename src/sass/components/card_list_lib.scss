@@ -1,4 +1,4 @@
-.card__list {
+.card__list-library {
   display: grid;
   justify-items: center;
 
@@ -29,15 +29,10 @@
 
 .card__item:hover,
 .card__item:focus {
-  border-radius: 5px;
-  box-shadow: 2px 4px 22px 0px rgba(99, 87, 99, 0.57);
-  transition: box-shadow 250ms var(--timing-function),
-    scale 250ms var(--timing-function);
   transform: scale(1.05);
 }
 
 .card__img {
-  border-radius: 5px 5px 0 0;
   @media screen and (max-width: 479px) {
     height: 88%;
   }
@@ -54,8 +49,7 @@
   font-weight: 500;
   text-transform: uppercase;
   color: var(--primary-text-color-dark);
-  padding-left: 4px;
-  // Special for Karolina
+
   @media screen and (max-width: $max-mob) {
     font-size: $font-paragraph;
     line-height: 1.16;

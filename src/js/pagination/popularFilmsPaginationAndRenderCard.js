@@ -123,8 +123,8 @@ export function markupMovies(movies) {
       }
       return `
       <div class="card" data-id="${id}">
-        <img class="card__img" src="${image}" alt="${title}" data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <img class="card__img" src="" alt="${title}" data-id="${id}"/>
+        <p class="card__title" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
