@@ -11,45 +11,46 @@ export const APIEndPoints = {
 };
 
 const fetchTrandingMovieAPI = new FetchMoviesAPI(APIEndPoints.trendingMovie);
-
-// this problem dostallo
-
-const newApi = new NewApi();
 const refs = {
   gallery: document.querySelector('.card__list'),
 };
+if (refs.gallery) {
+  const newApi = new NewApi();
 
-export async function appendMarkupMovies() {
-  let response;
+  async function appendMarkupMovies() {
+    let response;
 
-  try {
-    response = await newApi.fetchMovies();
-    refs.gallery.insertAdjacentHTML(
-      'beforeend',
-      markupMovies(response.data.results)
-    );
-  } catch (error) {
-    console.log(error.message);
+    try {
+      response = await newApi.fetchMovies();
+      refs.gallery.insertAdjacentHTML(
+        'beforeend',
+        markupMovies(response.data.results)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+    return response.data;
   }
-  return response.data;
+
+  appendMarkupMovies().then(data => {
+    const paginationItemsContainer = document.querySelector(
+      '.pagination-container'
+    );
+
+    paginationItemsContainer.innerHTML = '';
+
+    paginationItemsContainer.removeEventListener(
+      'click',
+      onSearchPaginationClick
+    );
+    paginationItemsContainer.addEventListener(
+      'click',
+      onTrendingPaginationClick
+    );
+    pagination(data.page, data.total_pages);
+  });
 }
 
-appendMarkupMovies().then(data => {
-  const paginationItemsContainer = document.querySelector(
-    '.pagination-container'
-  );
-
-  paginationItemsContainer.innerHTML = '';
-
-  paginationItemsContainer.removeEventListener(
-    'click',
-    onSearchPaginationClick
-  );
-  paginationItemsContainer.addEventListener('click', onTrendingPaginationClick);
-  pagination(data.page, data.total_pages);
-});
-
-// end dostallo
 export async function onTrendingPaginationClick({ target }) {
   if (
     target.nodeName === 'UL' ||
@@ -80,16 +81,6 @@ function renderGalleryMarkup(markup) {
   refs.gallery.innerHTML = markup;
 }
 
-// ---------------------not open
-
-//   refs.gallery.insertAdjacentHTML('beforeend', markup);
-
-// -------Функция удаления разметки галлереи-------
-
-// function clearGalleryMarkup() {
-//   refs.gallery.innerHTML = '';
-// }
-// import { findGenresOfMovie } from './find-genres-of-popular-movies';
 export function findGenresOfMovie(ids) {
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
   const movieGenres = arr.map(el => el.name);
