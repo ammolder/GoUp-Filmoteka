@@ -16,6 +16,7 @@ if (cardListLibrary) {
 }
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
+
   if (cardId) {
     responseCardDetails = await getApiDetails(cardId);
     // console.log(responseCardDetails.data);
@@ -28,7 +29,7 @@ export async function onClickCard(evt) {
 }
 
 export function onClickModal(evt) {
-  // console.dir(evt.target);
+  console.log(evt.target);
   const modalOverlay = document.querySelector('.backdrop');
   // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {

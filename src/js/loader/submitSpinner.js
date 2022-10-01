@@ -5,7 +5,7 @@ const loading = document.querySelector('#loading');
     // to stop Loading after some time
     setTimeout(() => {
       loading.classList.remove("display");
-    }, 2000);
+    }, 5000);
   };
 
 

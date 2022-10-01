@@ -3,8 +3,8 @@ import { renderGallery } from './renderList';
 import { getApi } from './searchApi';
 import { onClickCard } from './modalListeners';
 // IMPORT PRELOADER SPINNER
-import {preloaderAnimation} from './loader/preloaderSpinner'
-  preloaderAnimation()
+import {preloaderAnimation} from './loader/preloaderSpinner.js'
+preloaderAnimation()
 
 // IMPORT SUBMIT SPINNER
 
@@ -18,6 +18,7 @@ cardList.addEventListener('click', onClickCard);
 
 export async function onSubmitForm(evt) {
   evt.preventDefault();
+
 hideLoading()
   const searchName = evt.currentTarget.elements.querySearch.value;
   const response = await getApi(searchName);

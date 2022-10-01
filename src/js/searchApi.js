@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import {displayLoading} from './loader/submitSpinner.js'
 
-
 export async function getApi(name) {
   const BASE_URL = 'https://api.themoviedb.org/3/search/movie';
   const params = {
