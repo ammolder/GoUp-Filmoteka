@@ -17,10 +17,10 @@ export function modal(data) {
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
-
-  const modalMarckUp = `<div class="backdrop is-hidden">
+    
+  const modalMarckUp = `<div class="backdrop">
   
-            <div class="modal">
+            <div class="modal is-hidden">
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
@@ -79,13 +79,13 @@ export function modal(data) {
 
   body.insertAdjacentHTML('afterbegin', modalMarckUp);
   const modalOverlay = document.querySelector('.backdrop');
-
+  const modal = document.querySelector('.modal');
   modalOverlay.style.backgroundImage = `url(
     https://image.tmdb.org/t/p/w1280/${data.backdrop_path}
   )`;
   setTimeout(() => {
-    modalOverlay.classList.remove('is-hidden');
-  }, 100);
+    modal.classList.remove('is-hidden');
+  }, 400);
   modalOverlay.addEventListener('click', onClickModal);
   document.addEventListener('keydown', keyDown);
   const btnClose = document.querySelector('.modal-btn');
