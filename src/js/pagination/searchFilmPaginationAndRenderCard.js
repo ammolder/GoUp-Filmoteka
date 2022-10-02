@@ -1,5 +1,9 @@
 import axios from 'axios';
-import image from '../../image/card.jpg'
+
+import image1 from '../../image/sample1.jpg';
+import image2 from '../../image/sample2.jpg';
+import image3 from '../../image/sample3.jpg';
+
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -128,39 +132,38 @@ const galleryContainerMovies = document.querySelector('.card__list');
 function renderCardMovies(movies) {
   const markup = movies
     .map(movie => {
+      const imagesStock = [image1, image2, image3];
+      let randomImages = Math.floor(Math.random() * imagesStock.length);
+      let images = imagesStock[randomImages];
       const { poster_path, title, genre_ids, release_date, id } = movie;
       const date = new Date(release_date).getFullYear();
-      if (poster_path) {
-        return `
-           <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
-" data-id="${id}"/>
-        <p class="card__title" data-id="${id}">
-          ${title} <br />
-          <span class="card__text">${findGenresOfMovie(
-            genre_ids
-          )} | ${date}</span>
-        </p>
-      </div>`;
-      }
+
       return `
            <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img"  src="${image}" alt="${title}
-" data-id="${id}"/>
+           ${
+             poster_path
+               ? `<img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
+" data-id="${id}"/>`
+               : `<img class="card__img" src=${images}  alt="${title}
+" data-id="${id}"/>`
+           }
+        
         <p class="card__title" data-id="${id}">
           ${title} <br />
-          <span class="card__text">${findGenresOfMovie(
-            genre_ids
-          )} | ${date}</span>
+          <span class="card__text">${
+            findGenresOfMovie(genre_ids)
+              ? findGenresOfMovie(genre_ids)
+              : 'Unknown'
+          } | ${date ? date : 'Unknown'}</span>
         </p>
       </div>`;
     })
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
- window.scrollTo({
-  top: 100,
-  left: 100,
-  behavior: 'smooth'
-});
+  window.scrollTo({
+    top: 100,
+    left: 100,
+    behavior: 'smooth',
+  });
 }

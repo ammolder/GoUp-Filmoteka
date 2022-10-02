@@ -1,3 +1,6 @@
+import image1 from '../image/sample1.jpg';
+import image2 from '../image/sample2.jpg';
+import image3 from '../image/sample3.jpg';
 import {
   onClickModal,
   onQueueClick,
@@ -5,20 +8,33 @@ import {
   onBtnCloseClick,
 } from './modalListeners';
 import { keyDown } from './modalListeners';
+
 const body = document.querySelector('body');
 export function modal(data) {
+  const imagesStock = [image1, image2, image3];
+  let randomImages = Math.floor(Math.random() * imagesStock.length);
+  let images = imagesStock[randomImages];
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
-  console.log(data.poster_path);
-
+    
   const modalMarckUp = `<div class="backdrop">
   
             <div class="modal is-hidden">
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
-                <img class="modal-picture__image" src= ${`https://image.tmdb.org/t/p/w500${data.poster_path} `}alt="Картинка кинофильма">
+            ${
+              data.poster_path
+                ? `<img class="modal-picture__image" src= 
+                 https://image.tmdb.org/t/p/w500${data.poster_path}
+                  
+      alt="Картинка кинофильма"></img>`
+                : `<img class="modal-picture__image" src=${images}
+                  
+      alt="Картинка кинофильма"></img>`
+            }
+                
             </div>
             <div class="modal-info">
                 <div>
