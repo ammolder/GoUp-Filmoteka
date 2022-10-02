@@ -1,5 +1,9 @@
 import axios from 'axios';
-import image from '../../image/card.jpg';
+
+import image1 from '../../image/sample1.jpg';
+import image2 from '../../image/sample2.jpg';
+import image3 from '../../image/sample3.jpg';
+
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -128,6 +132,9 @@ const galleryContainerMovies = document.querySelector('.card__list');
 function renderCardMovies(movies) {
   const markup = movies
     .map(movie => {
+      const imagesStock = [image1, image2, image3];
+      let randomImages = Math.floor(Math.random() * imagesStock.length);
+      let images = imagesStock[randomImages];
       const { poster_path, title, genre_ids, release_date, id } = movie;
       const date = new Date(release_date).getFullYear();
 
@@ -137,7 +144,7 @@ function renderCardMovies(movies) {
              poster_path
                ? `<img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
 " data-id="${id}"/>`
-               : `<img class="card__img" src=${image}  alt="${title}
+               : `<img class="card__img" src=${images}  alt="${title}
 " data-id="${id}"/>`
            }
         

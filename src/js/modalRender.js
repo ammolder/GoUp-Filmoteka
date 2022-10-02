@@ -1,4 +1,6 @@
-import image from '../image/card.jpg';
+import image1 from '../image/sample1.jpg';
+import image2 from '../image/sample2.jpg';
+import image3 from '../image/sample3.jpg';
 import {
   onClickModal,
   onQueueClick,
@@ -6,8 +8,12 @@ import {
   onBtnCloseClick,
 } from './modalListeners';
 import { keyDown } from './modalListeners';
+
 const body = document.querySelector('body');
 export function modal(data) {
+  const imagesStock = [image1, image2, image3];
+  let randomImages = Math.floor(Math.random() * imagesStock.length);
+  let images = imagesStock[randomImages];
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
@@ -24,7 +30,7 @@ export function modal(data) {
                  https://image.tmdb.org/t/p/w500${data.poster_path}
                   
       alt="Картинка кинофильма"></img>`
-                : `<img class="modal-picture__image" src=${image}
+                : `<img class="modal-picture__image" src=${images}
                   
       alt="Картинка кинофильма"></img>`
             }
