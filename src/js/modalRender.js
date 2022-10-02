@@ -6,33 +6,15 @@ import {
 } from './modalListeners';
 import { keyDown } from './modalListeners';
 const body = document.querySelector('body');
-// const imagesStock = [
-//   './image/sample1.jpg',
-//   './image/sample2.jpg',
-//   './image/sample3.jpg',
-// ];
-// let randomImages = Math.floor(Math.random() * imagesStock.length);
-// let images = imagesStock[randomImages];
-// console.log(images);
 export function modal(data) {
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
-  // const image =
-  //   data.poster_path !== null
-  //     ? `https://image.tmdb.org/t/p/w500${data.poster_path} `
-  //     : `${images}`;
   console.log(data.poster_path);
-  // console.log(image);
 
-  // let image = '../image/sample1.jpg';
-  // if (data.poster_path !== null) {
-  //   image = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-  // }
-
-  const modalMarckUp = `<div class="backdrop is-hidden">
+  const modalMarckUp = `<div class="backdrop">
   
-            <div class="modal">
+            <div class="modal is-hidden">
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
@@ -81,13 +63,13 @@ export function modal(data) {
 
   body.insertAdjacentHTML('afterbegin', modalMarckUp);
   const modalOverlay = document.querySelector('.backdrop');
-
+  const modal = document.querySelector('.modal');
   modalOverlay.style.backgroundImage = `url(
     https://image.tmdb.org/t/p/w1280/${data.backdrop_path}
   )`;
   setTimeout(() => {
-    modalOverlay.classList.remove('is-hidden');
-  }, 100);
+    modal.classList.remove('is-hidden');
+  }, 400);
   modalOverlay.addEventListener('click', onClickModal);
   document.addEventListener('keydown', keyDown);
   const btnClose = document.querySelector('.modal-btn');

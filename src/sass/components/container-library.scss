@@ -1,4 +1,4 @@
-.container-main {
+.container-lib {
   @media screen and (min-width: $mobile) {
     padding-top: 20px;
   }
@@ -10,7 +10,6 @@
 .card__list {
   display: grid;
   justify-items: center;
-
   @media screen and (min-width: $mobile) and (max-width: $max-mob) {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 20px;
@@ -66,4 +65,8 @@
 
 .library__empty-text:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.hidden-nothing {
+  display: none;
 }
