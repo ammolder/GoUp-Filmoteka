@@ -1,3 +1,4 @@
+import image from '../image/card.jpg';
 import {
   onClickModal,
   onQueueClick,
@@ -6,29 +7,10 @@ import {
 } from './modalListeners';
 import { keyDown } from './modalListeners';
 const body = document.querySelector('body');
-// const imagesStock = [
-//   './image/sample1.jpg',
-//   './image/sample2.jpg',
-//   './image/sample3.jpg',
-// ];
-// let randomImages = Math.floor(Math.random() * imagesStock.length);
-// let images = imagesStock[randomImages];
-// console.log(images);
 export function modal(data) {
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
-  // const image =
-  //   data.poster_path !== null
-  //     ? `https://image.tmdb.org/t/p/w500${data.poster_path} `
-  //     : `${images}`;
-  console.log(data.poster_path);
-  // console.log(image);
-
-  // let image = '../image/sample1.jpg';
-  // if (data.poster_path !== null) {
-  //   image = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
-  // }
 
   const modalMarckUp = `<div class="backdrop is-hidden">
   
@@ -36,7 +18,17 @@ export function modal(data) {
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
-                <img class="modal-picture__image" src= ${`https://image.tmdb.org/t/p/w500${data.poster_path} `}alt="Картинка кинофильма">
+            ${
+              data.poster_path
+                ? `<img class="modal-picture__image" src= 
+                 https://image.tmdb.org/t/p/w500${data.poster_path}
+                  
+      alt="Картинка кинофильма"></img>`
+                : `<img class="modal-picture__image" src=${image}
+                  
+      alt="Картинка кинофильма"></img>`
+            }
+                
             </div>
             <div class="modal-info">
                 <div>
