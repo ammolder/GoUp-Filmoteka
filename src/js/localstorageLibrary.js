@@ -43,13 +43,15 @@ export function renderLibraryGallery(data) {
   }
 }
 
-if (watchedLibraryList.length !== 0) {
-  renderLibraryGallery(watchedLibraryList);
-  if (refs.emptyWrap) {
-    refs.emptyWrap.classList.add('hidden-nothing');
-  } else {
-    refs.gallery.innerHTML = '';
-    refs.emptyWrap.classList.remove('hidden-nothing');
+if (refs.gallery) {
+  if (watchedLibraryList.length !== 0) {
+    renderLibraryGallery(watchedLibraryList);
+    if (refs.emptyWrap) {
+      refs.emptyWrap.classList.add('hidden-nothing');
+    } else {
+      refs.gallery.innerHTML = '';
+      refs.emptyWrap.classList.remove('hidden-nothing');
+    }
   }
 }
 
