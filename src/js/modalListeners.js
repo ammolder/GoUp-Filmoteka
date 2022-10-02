@@ -32,11 +32,11 @@ export async function onClickCard(evt) {
     responseCardDetails = await getApiDetails(cardId);
     // console.log(responseCardDetails.data);
     modal(responseCardDetails.data);
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
     const buttonWatched = document.querySelector('#library-wathed');
     const buttonQueue = document.querySelector('#library-queue');
-    const firebaseAcces = JSON.parse(
-      localStorage.getItem('firebase:previous_websocket_failure')
-    );
+    const firebaseAcces = JSON.parse(localStorage.getItem('my-loginUser'));
     console.log(firebaseAcces);
     if (!firebaseAcces) {
       buttonWatched.style.display = 'none';
@@ -74,6 +74,10 @@ export function onClickModal(evt) {
   // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {
     modalOverlay.remove();
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
     document.removeEventListener('keydown', keyDown);
   }
 }
@@ -81,6 +85,10 @@ export function onClickModal(evt) {
 export function onBtnCloseClick() {
   const modalBackdrop = document.querySelector('.backdrop');
   modalBackdrop.remove();
+  const scrollY = document.body.style.top;
+  document.body.style.position = '';
+  document.body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 export function keyDown(evt) {
@@ -88,6 +96,10 @@ export function keyDown(evt) {
   document.addEventListener('keydown', keyDown);
   if (evt.key === 'Escape') {
     modalOverlay.remove();
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
     document.removeEventListener('keydown', keyDown);
   }
 }
