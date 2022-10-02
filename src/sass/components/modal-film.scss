@@ -184,6 +184,8 @@
   line-height: 1.33;
 }
 .modal-info__description {
+  max-height: 160px;
+  overflow-y: auto;
   font-family: $base-font;
   font-style: normal;
   font-weight: 500;

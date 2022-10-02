@@ -17,7 +17,7 @@ export function modal(data) {
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
-    
+
   const modalMarckUp = `<div class="backdrop">
   
             <div class="modal is-hidden">
@@ -67,7 +67,9 @@ export function modal(data) {
                 </div>
                 <div>
                <h2 class="modal-info__about">ABOUT</h2>
-               <p class="modal-info__description">${data.overview}</p>
+               <p class="modal-info__description">${
+                 data.overview ? data.overview : 'There is no description'
+               }</p>
                </div>
             <div class="modal-info__btn">
             <button id="library-wathed" type="button" class="info-btn">add to Watched</button>

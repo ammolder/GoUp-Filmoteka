@@ -34,6 +34,14 @@ export async function onClickCard(evt) {
     modal(responseCardDetails.data);
     const buttonWatched = document.querySelector('#library-wathed');
     const buttonQueue = document.querySelector('#library-queue');
+    const firebaseAcces = JSON.parse(
+      localStorage.getItem('firebase:previous_websocket_failure')
+    );
+    console.log(firebaseAcces);
+    if (!firebaseAcces) {
+      buttonWatched.style.display = 'none';
+      buttonQueue.style.display = 'none';
+    }
     if (
       watchedStorage.length !== 0 &&
       watchedStorage.find(film => {
