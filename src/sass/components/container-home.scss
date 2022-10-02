@@ -1,4 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .container-main {
+  flex: 1 1 auto;
   @media screen and (min-width: $mobile) {
     padding-top: 20px;
   }

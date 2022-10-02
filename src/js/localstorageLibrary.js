@@ -1,5 +1,5 @@
-import { STORAGE_QUEUE_KEY } from './modalListeners';
-import { STORAGE_WATCHED_KEY } from './modalListeners';
+const STORAGE_WATCHED_KEY = 'watched-films-lib';
+const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
 const refs = {
   watched: document.querySelector('.data-watched'),
@@ -18,7 +18,7 @@ if (refs.queue) {
   refs.queue.addEventListener('click', onLibraryQueueClick);
 }
 
-function renderLibraryGallery(data) {
+export function renderLibraryGallery(data) {
   const markupGallery = data
     .map(card => {
       const date = new Date(card.release_date).getFullYear();
