@@ -13,7 +13,6 @@ export default class NewApi {
       `${URL}/3/trending/movie/week?api_key=${KEY}&page=1`
     );
     this.incrementPage();
-
     return response;
   }
   incrementPage() {

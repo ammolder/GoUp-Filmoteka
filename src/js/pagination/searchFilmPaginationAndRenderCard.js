@@ -9,6 +9,11 @@ import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
 import { onTrendingPaginationClick } from './popularFilmsPaginationAndRenderCard';
 
+// IMPORT SPINNER
+import {displayLoading} from '../loader/submitSpinner'
+import {hideLoading} from '../loader/submitSpinner'
+
+
 export const APIEndPoints = {
   trendingMovie: '/3/trending/movie/day',
   searchMovie: '/3/search/movie',
@@ -19,6 +24,7 @@ const KEY = '77e7936073a1f82fbc0d3a17a985fb5b';
 const URL = 'https://api.themoviedb.org';
 
 async function fetchMovies(query, page) {
+  
   try {
     const response = await axios.get(
       `${URL}/3/search/movie?api_key=${KEY}&query=${query}&language=en-US&page=${page}&include_adult=false`
@@ -45,6 +51,10 @@ if (formSearch) {
 }
 function onSearchMovies(event) {
   event.preventDefault();
+
+  // REMOVE LOADER
+  hideLoading()
+  
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
 
@@ -55,18 +65,19 @@ function onSearchMovies(event) {
     }, 3000);
     return;
   }
-
   fetchMovies(query, page).then(({ data }) => {
+  //  CALL LOADER
+    displayLoading()
+
     if (!data.total_results) {
       errorText.classList.remove('visually-hidden');
       setTimeout(() => {
         errorText.classList.add('visually-hidden');
       }, 3000);
     } else {
+      
       clearGalleryMarkup();
-
-      renderCardMovies(data.results);
-
+       renderCardMovies(data.results);
       const paginationItemsContainer = document.querySelector(
         '.pagination-container'
       );
@@ -82,10 +93,13 @@ function onSearchMovies(event) {
       );
       pagination(data.page, data.total_pages);
     }
+  
   });
+  
 }
 
 export async function onSearchPaginationClick({ target }) {
+  // displayLoading()
   if (
     target.nodeName === 'UL' ||
     target.classList.contains('disabled') ||

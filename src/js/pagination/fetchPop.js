@@ -4,6 +4,8 @@ import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import { onSearchPaginationClick } from './search-movies';
 
+import {displayLoading} from '../loader/submitSpinner'
+
 export const APIEndPoints = {
   trendingMovie: '/3/trending/movie/day',
   searchMovie: '/3/search/movie',
@@ -35,7 +37,7 @@ export async function appendMarkupMovies() {
 appendMarkupMovies().then(data => {
   const paginationItemsContainer = document.querySelector(
     '.pagination-container'
-  );
+  )
 
   paginationItemsContainer.innerHTML = '';
 
@@ -68,12 +70,14 @@ export async function onTrendingPaginationClick({ target }) {
 
   const galleryMarkup = markupMovies(response.data.results);
   // clearGalleryMarkup();
+  
   renderGalleryMarkup(galleryMarkup);
 
   pagination(response.data.page, response.data.total_pages);
 }
 
 function renderGalleryMarkup(markup) {
+  
   refs.gallery.innerHTML = markup;
 }
 
