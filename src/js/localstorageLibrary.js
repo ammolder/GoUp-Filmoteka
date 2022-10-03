@@ -1,7 +1,7 @@
 const STORAGE_WATCHED_KEY = 'watched-films-lib';
 const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
-const refs = {
+export const refs = {
   watched: document.querySelector('.data-watched'),
   queue: document.querySelector('.data-queue'),
   gallery: document.querySelector('.card__list-library'),
@@ -56,6 +56,9 @@ if (refs.gallery) {
 }
 
 function onLibraryWatchedClick(evt) {
+  refs.watched.classList.add('active_btn');
+  refs.queue.classList.remove('active_btn');
+  watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
   if (watchedLibraryList.length !== 0) {
     renderLibraryGallery(watchedLibraryList);
     refs.emptyWrap.classList.add('hidden-nothing');
@@ -67,6 +70,8 @@ function onLibraryWatchedClick(evt) {
 
 function onLibraryQueueClick(evt) {
   refs.watched.classList.remove('active_btn');
+  refs.queue.classList.add('active_btn');
+  queueLibraryList = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
   if (queueLibraryList.length !== 0) {
     renderLibraryGallery(queueLibraryList);
     refs.emptyWrap.classList.add('hidden-nothing');
