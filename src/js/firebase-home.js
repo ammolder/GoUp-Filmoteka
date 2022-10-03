@@ -9,7 +9,8 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
-
+import {preloaderAnimation} from './loader/preloaderSpinner'
+preloaderAnimation()
 // Конфигурация Firebase вашего веб-приложения
 const firebaseConfig = {
   apiKey: 'AIzaSyC4axheHgy30RAlpQyWJSvsbT5mQm6T9AA',

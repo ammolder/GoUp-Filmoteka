@@ -24,7 +24,7 @@ const KEY = '77e7936073a1f82fbc0d3a17a985fb5b';
 const URL = 'https://api.themoviedb.org';
 
 async function fetchMovies(query, page) {
-  
+// displayLoading()
   try {
     const response = await axios.get(
       `${URL}/3/search/movie?api_key=${KEY}&query=${query}&language=en-US&page=${page}&include_adult=false`
@@ -51,13 +51,13 @@ if (formSearch) {
 }
 function onSearchMovies(event) {
   event.preventDefault();
-
+  displayLoading()
   // REMOVE LOADER
-  hideLoading()
-  
+  // hideLoading()
+
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
-
+displayLoading()
   if (!query) {
     errorText.classList.remove('visually-hidden');
     setTimeout(() => {
@@ -75,9 +75,9 @@ function onSearchMovies(event) {
         errorText.classList.add('visually-hidden');
       }, 3000);
     } else {
-      
+
       clearGalleryMarkup();
-       renderCardMovies(data.results);
+      renderCardMovies(data.results);
       const paginationItemsContainer = document.querySelector(
         '.pagination-container'
       );
@@ -93,13 +93,12 @@ function onSearchMovies(event) {
       );
       pagination(data.page, data.total_pages);
     }
-  
   });
-  
+
 }
 
 export async function onSearchPaginationClick({ target }) {
-  // displayLoading()
+displayLoading()
   if (
     target.nodeName === 'UL' ||
     target.classList.contains('disabled') ||
@@ -107,13 +106,12 @@ export async function onSearchPaginationClick({ target }) {
   ) {
     return;
   }
-
   fetchSearchMoviesResultsAPI.page = globalCurrentPage;
   fetchSearchMoviesResultsAPI.query = `&query=${query}`;
   let response;
-
   try {
     response = await fetchSearchMoviesResultsAPI.fetchMovies();
+    displayLoading()
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
@@ -122,7 +120,6 @@ export async function onSearchPaginationClick({ target }) {
   clearGalleryMarkup();
 
   const galleryMarkup = renderCardMovies(response.data.results);
-
   pagination(response.data.page, response.data.total_pages);
 }
 
@@ -130,14 +127,18 @@ function clearGalleryMarkup() {
   galleryContainerMovies.innerHTML = '';
 }
 export function findGenresOfMovie(ids) {
+
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
   const movieGenres = arr.map(el => el.name);
+
   if (movieGenres.length > 2) {
+
     const removedGenres = movieGenres.splice(0, 2);
     removedGenres.push('Other');
 
     return removedGenres.join(', ');
   }
+
   return movieGenres.join(', ');
 }
 
@@ -161,7 +162,7 @@ function renderCardMovies(movies) {
                : `<img class="card__img" src=${images}  alt="${title}
 " data-id="${id}"/>`
            }
-        
+
         <p class="card__title" data-id="${id}">
           ${title} <br />
           <span class="card__text">${
