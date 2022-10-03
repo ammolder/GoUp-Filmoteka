@@ -10,3 +10,4 @@ import * as myModule from './js/firebase-home';
 import * as myModule from './js/localstorageLibrary';
 import * as myModule from './js/modal-students';
 import * as myModule from './js/slider';
+import * as myModule from './js/button-up';

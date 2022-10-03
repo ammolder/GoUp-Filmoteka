@@ -1,11 +1,11 @@
-import { STORAGE_QUEUE_KEY } from './modalListeners';
-import { STORAGE_WATCHED_KEY } from './modalListeners';
-import genres from '../genres.json';
+const STORAGE_WATCHED_KEY = 'watched-films-lib';
+const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
 const refs = {
   watched: document.querySelector('.data-watched'),
   queue: document.querySelector('.data-queue'),
   gallery: document.querySelector('.card__list-library'),
+  emptyWrap: document.querySelector('.library__empty-wrap'),
 };
 
 let watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
@@ -18,7 +18,7 @@ if (refs.queue) {
   refs.queue.addEventListener('click', onLibraryQueueClick);
 }
 
-function renderLibraryGallery(data) {
+export function renderLibraryGallery(data) {
   const markupGallery = data
     .map(card => {
       const date = new Date(card.release_date).getFullYear();
@@ -42,19 +42,36 @@ function renderLibraryGallery(data) {
     refs.gallery.innerHTML = markupGallery;
   }
 }
-if (watchedLibraryList) {
-  renderLibraryGallery(watchedLibraryList);
+
+if (refs.gallery) {
+  if (watchedLibraryList.length !== 0) {
+    renderLibraryGallery(watchedLibraryList);
+    if (refs.emptyWrap) {
+      refs.emptyWrap.classList.add('hidden-nothing');
+    } else {
+      refs.gallery.innerHTML = '';
+      refs.emptyWrap.classList.remove('hidden-nothing');
+    }
+  }
 }
 
 function onLibraryWatchedClick(evt) {
-  if (watchedLibraryList) {
+  if (watchedLibraryList.length !== 0) {
     renderLibraryGallery(watchedLibraryList);
+    refs.emptyWrap.classList.add('hidden-nothing');
+  } else {
+    refs.gallery.innerHTML = '';
+    refs.emptyWrap.classList.remove('hidden-nothing');
   }
 }
 
 function onLibraryQueueClick(evt) {
-  if (queueLibraryList) {
+  refs.watched.classList.remove('active_btn');
+  if (queueLibraryList.length !== 0) {
     renderLibraryGallery(queueLibraryList);
-    refs.watched.classList.remove('active_btn');
+    refs.emptyWrap.classList.add('hidden-nothing');
+  } else {
+    refs.gallery.innerHTML = '';
+    refs.emptyWrap.classList.remove('hidden-nothing');
   }
 }

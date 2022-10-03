@@ -1,9 +1,12 @@
 import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
+import { renderLibraryGallery } from './localstorageLibrary';
 
 export const STORAGE_WATCHED_KEY = 'watched-films-lib';
 export const STORAGE_QUEUE_KEY = 'queue-films-lib';
 const cardList = document.querySelector('.card__list');
+const emptyWrap = document.querySelector('.library__empty-wrap');
+const cardListLibrary = document.querySelector('.card__list-library');
 
 let responseCardDetails = null;
 let watchedStorage = [];
@@ -17,7 +20,6 @@ if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
 
 console.log(watchedStorage);
 
-const cardListLibrary = document.querySelector('.card__list-library');
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
 }
@@ -98,6 +100,13 @@ export function onWatchedClick(evt) {
       });
 
       watchedStorage = filtredFilms;
+      console.log(watchedStorage);
+      if (watchedStorage.length !== 0) {
+        renderLibraryGallery(watchedStorage);
+      } else {
+        cardListLibrary.innerHTML = '';
+        emptyWrap.classList.remove('hidden-nothing');
+      }
       localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
       const buttonWatched = document.querySelector('#library-wathed');
       buttonWatched.textContent = 'ADD TO WATCHED';
@@ -130,6 +139,12 @@ export function onQueueClick(evt) {
       });
 
       queueStorage = filtredFilms;
+      if (queueStorage.length !== 0) {
+        renderLibraryGallery(queueStorage);
+      } else {
+        cardListLibrary.innerHTML = '';
+        emptyWrap.classList.remove('hidden-nothing');
+      }
       localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
       const buttonQueue = document.querySelector('#library-queue');
       buttonQueue.textContent = 'ADD TO QUEUE';
