@@ -40,7 +40,9 @@ function render(data) {
     })
     .join('');
   console.log(list);
-  refs.lisrTopFilms.insertAdjacentHTML('beforeend', list);
+  if (refs.lisrTopFilms) {
+    refs.lisrTopFilms.insertAdjacentHTML('beforeend', list);
+  }
   refs.itemCard = document.querySelector('.slider__item');
   //   refs.itemCard.addEventListener('click', removeClassHidden);
 }
