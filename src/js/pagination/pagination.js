@@ -1,7 +1,14 @@
 const paginationContainer = document.querySelector('.pagination-container');
-paginationContainer.addEventListener('click', onPagination);
+const paginationLabContainer = document.querySelector(
+  '.pagination-lab-container'
+);
 
-window.globalCurrentPage = null;
+if (paginationContainer) {
+  paginationContainer.addEventListener('click', onPagination);
+}
+if (paginationLabContainer) {
+  paginationLabContainer.addEventListener('click', onPagination);
+}
 
 export function pagination(page, totalPages) {
   const beforeToPage = page - 2;
@@ -47,20 +54,41 @@ export function pagination(page, totalPages) {
     markup += '<li class="pagination-btn arrow-right disabled">N</li>';
   }
 
-  paginationContainer.innerHTML = markup;
+  if (paginationContainer) {
+    paginationContainer.innerHTML = markup;
+  }
+  if (paginationLabContainer) {
+    paginationLabContainer.innerHTML = markup;
+  }
 
-  const containerItems = [...paginationContainer.children];
+  if (paginationContainer) {
+    const containerItems = [...paginationContainer.children];
 
-  containerItems.forEach(item => {
-    if (Number(item.textContent) === globalCurrentPage) {
-      item.classList.add('current');
-    }
-  });
+    containerItems.forEach(item => {
+      if (Number(item.textContent) === globalCurrentPage) {
+        item.classList.add('current');
+      }
+    });
+  }
+  if (paginationLabContainer) {
+    const containerItems = [...paginationLabContainer.children];
+
+    containerItems.forEach(item => {
+      if (Number(item.textContent) === globalCurrentPage) {
+        item.classList.add('current');
+      }
+    });
+  }
 }
+// paginationLabContainer.setAttribute('page', '1');
 
 function onPagination({ target }) {
-  if (target.nodeName !== 'LI' ||
-    target.classList.contains('request-paragraph')  ) {
+  // paginationLabContainer.setAttribute('page', `${target.textContent}`);
+
+  if (
+    target.nodeName !== 'LI' ||
+    target.classList.contains('request-paragraph')
+  ) {
     return;
   }
 
@@ -85,13 +113,3 @@ function onPagination({ target }) {
   }
   globalCurrentPage = Number(target.textContent);
 }
-
-
-
-
-
-
-
-
-
-

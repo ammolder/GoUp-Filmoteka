@@ -22,7 +22,6 @@ export function modal(data) {
   //   data.poster_path !== null
   //     ? `https://image.tmdb.org/t/p/w500${data.poster_path} `
   //     : `${images}`;
-  console.log(data.poster_path);
   // console.log(image);
 
   // let image = '../image/sample1.jpg';

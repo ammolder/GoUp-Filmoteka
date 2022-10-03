@@ -8,14 +8,18 @@ const cardList = document.querySelector('.card__list');
 let responseCardDetails = null;
 let watchedStorage = [];
 let queueStorage = [];
+// JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY)
+
 if (JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY))) {
   watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
 }
 if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
   queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 }
-
-console.log(watchedStorage);
+export const getArrayWatchedAndQueue = {
+  watchedStorage: JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY)),
+  queueStorage: JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY)),
+};
 
 const cardListLibrary = document.querySelector('.card__list-library');
 if (cardList) {
@@ -51,7 +55,6 @@ export async function onClickCard(evt) {
       buttonQueue.classList.add('remove');
     }
 
-    console.log(buttonWatched);
     const modalOverlay = document.querySelector('.backdrop');
     modalOverlay.addEventListener('click', onClickModal);
     document.addEventListener('keydown', keyDown);

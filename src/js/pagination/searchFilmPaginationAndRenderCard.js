@@ -1,5 +1,5 @@
 import axios from 'axios';
-import image from '../../image/card.jpg'
+import image from '../../image/card.jpg';
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -158,9 +158,9 @@ function renderCardMovies(movies) {
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
- window.scrollTo({
-  top: 100,
-  left: 100,
-  behavior: 'smooth'
-});
+  window.scrollTo({
+    top: 100,
+    left: 100,
+    behavior: 'smooth',
+  });
 }

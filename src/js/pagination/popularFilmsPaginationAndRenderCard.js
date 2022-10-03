@@ -1,5 +1,5 @@
 import NewApi from './fetch-movies-homepg';
-import image from '../../image/card.jpg';
+import { image } from '../../image/card.jpg';
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import { onSearchPaginationClick } from './searchFilmPaginationAndRenderCard';
@@ -11,9 +11,13 @@ export const APIEndPoints = {
   movieDetails: `/3/movie/`,
 };
 
-const fetchTrandingMovieAPI = new FetchMoviesAPI(APIEndPoints.trendingMovie);
+export const fetchTrandingMovieAPI = new FetchMoviesAPI(
+  APIEndPoints.trendingMovie
+);
+
 const refs = {
   gallery: document.querySelector('.card__list'),
+  galleryLab: document.querySelector('.card__list-lab'),
 };
 if (refs.gallery) {
   const newApi = new NewApi();
@@ -30,6 +34,7 @@ if (refs.gallery) {
     } catch (error) {
       console.log(error.message);
     }
+
     return response.data;
   }
 
@@ -68,10 +73,10 @@ export async function onTrendingPaginationClick({ target }) {
     response = await fetchTrandingMovieAPI.fetchMovies();
     //  window.scrollTo(0, 0, );
     window.scrollTo({
-  top: 100,
-  left: 100,
-  behavior: 'smooth'
-});
+      top: 100,
+      left: 100,
+      behavior: 'smooth',
+    });
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
@@ -85,7 +90,12 @@ export async function onTrendingPaginationClick({ target }) {
 }
 
 function renderGalleryMarkup(markup) {
-  refs.gallery.innerHTML = markup;
+  if (refs.gallery) {
+    refs.gallery.innerHTML = markup;
+  }
+  if (refs.galleryLab) {
+    refs.galleryLab.innerHTML = markup;
+  }
 }
 function clearGalleryMarkup() {
   galleryContainerMovies.innerHTML = '';

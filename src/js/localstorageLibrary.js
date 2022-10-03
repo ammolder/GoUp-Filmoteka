@@ -1,5 +1,6 @@
 import { STORAGE_QUEUE_KEY } from './modalListeners';
 import { STORAGE_WATCHED_KEY } from './modalListeners';
+import { getItemsForPage } from './pagination/classForLocalStorage';
 import genres from '../genres.json';
 
 const refs = {
@@ -8,8 +9,7 @@ const refs = {
   gallery: document.querySelector('.card__list-library'),
 };
 
-let watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
-console.log(watchedLibraryList);
+let watchedLibraryList = getItemsForPage();
 let queueLibraryList = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 if (refs.watched) {
   refs.watched.addEventListener('click', onLibraryWatchedClick);
