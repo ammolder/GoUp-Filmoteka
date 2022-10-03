@@ -104,16 +104,21 @@ function addClasModalUserLocalStorage() {
   refs.userExit.classList.add('hidden');
 }
 
-function openModalExit() {
-  refs.userExit.classList.remove('hidden');
-  window.addEventListener('keydown', onClickModal); // добавляем слушателя на клавиатуру
-}
-
 function onClickModal(e) {
   if (e.key === 'Escape') {
     refs.userExit.classList.add('hidden');
     window.removeEventListener('keydown', onClickModal); // удаляем слушателя з клавиатури
   }
+}
+
+function openModalExit() {
+  if (dataSeve === null) {
+    window.addEventListener('keydown', onClickEscapeLogin);
+    refs.backdrop.classList.remove('hidden');
+    return;
+  }
+  refs.userExit.classList.remove('hidden');
+  window.addEventListener('keydown', onClickModal); // добавляем слушателя на клавиатуру
 }
 
 // при нажатии срабативает проверка на авторизацию
@@ -132,6 +137,7 @@ function localStorageUserTrue(boolean) {
   localStorage.setItem('my-loginUser', JSON.stringify({ loginUser: boolean }));
 }
 const dataSeve = JSON.parse(localStorage.getItem('my-loginUser'));
+
 //добавление email в localStorage
 function addMailLocalStorage(email) {
   localStorage.setItem('my-email', JSON.stringify({ email: email }));
@@ -140,6 +146,7 @@ const loginPage = JSON.parse(localStorage.getItem('my-email'));
 //Проверка через localStorage вход на сайт
 if (dataSeve === null) {
   loginUserFilmoteka = false;
+  // refs.iconLoginUser.dis;
   if (loginPage === null) {
     refs.loginUser.textContent = 'Guest';
     refs.iconUserEnter.classList.remove('hidden');
@@ -276,5 +283,16 @@ function onClickModalForm(e) {
   if (e.key === 'Escape') {
     refs.backdrop.classList.add('hidden');
     window.removeEventListener('keydown', onClickModalForm); // удаляем слушателя з клавиатури
+    // refs.backdrop.classList.add('hidden');
+    refs.buttonSelectInput.classList.remove('hidden');
+    refs.formLoginUser.classList.add('hidden');
+    refs.formSighUpUser.classList.add('hidden');
+  }
+}
+
+function onClickEscapeLogin(e) {
+  if (e.key === 'Escape') {
+    refs.backdrop.classList.add('hidden');
+    window.removeEventListener('keydown', onClickEscapeLogin);
   }
 }
