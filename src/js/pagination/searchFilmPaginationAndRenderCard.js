@@ -33,9 +33,10 @@ async function fetchMovies(query, page) {
 const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
   APIEndPoints.searchMovie
 );
-
+const galleryContainerMovies = document.querySelector('.card__list');
 const formSearch = document.querySelector('.header-search');
 const errorText = document.querySelector('.request-paragraph');
+const emptyWrap = document.querySelector('.home__empty-wrap');
 
 let query = '';
 let page = 1;
@@ -43,6 +44,12 @@ let page = 1;
 if (formSearch) {
   formSearch.addEventListener('submit', onSearchMovies);
 }
+
+
+function noMovie() {
+emptyWrap.classList.remove('hidden-nothing')
+}
+
 function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
@@ -53,6 +60,7 @@ function onSearchMovies(event) {
     setTimeout(() => {
       errorText.classList.add('visually-hidden');
     }, 3000);
+ 
     return;
   }
 
@@ -62,9 +70,14 @@ function onSearchMovies(event) {
       setTimeout(() => {
         errorText.classList.add('visually-hidden');
       }, 3000);
-    } else {
-      clearGalleryMarkup();
+      galleryContainerMovies.classList.add('visually-hidden'); 
+      pagination(1);
+      noMovie();
 
+    } else {
+emptyWrap.classList.add('hidden-nothing')
+      clearGalleryMarkup();
+galleryContainerMovies.classList.remove('visually-hidden'); 
       renderCardMovies(data.results);
 
       const paginationItemsContainer = document.querySelector(
@@ -84,6 +97,7 @@ function onSearchMovies(event) {
     }
   });
 }
+
 
 export async function onSearchPaginationClick({ target }) {
   if (
@@ -127,7 +141,7 @@ export function findGenresOfMovie(ids) {
   return movieGenres.join(', ');
 }
 
-const galleryContainerMovies = document.querySelector('.card__list');
+
 
 function renderCardMovies(movies) {
   const markup = movies
@@ -167,3 +181,5 @@ function renderCardMovies(movies) {
     behavior: 'smooth',
   });
 }
+
+
