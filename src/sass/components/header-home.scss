@@ -69,6 +69,26 @@
   }
 }
 
+.svg {
+  height: 24px;
+  width: 24px;
+  stroke: #444444;
+  fill: #444444;
+  
+  animation: SVG-rotate 6s infinite;
+}
+@keyframes SVG-rotate {
+/*   0% {
+    transform: rotate(0deg);
+  } */
+/*    50% {
+    transform: rotate(360deg);
+  } */
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .header-nav__text {
   display: contents;
 
