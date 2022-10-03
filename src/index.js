@@ -11,3 +11,4 @@ import * as myModule from './js/localstorageLibrary';
 import * as myModule from './js/modal-students';
 import * as myModule from './js/slider';
 import * as myModule from './js/button-up';
+import * as myModule from './js/theme';

@@ -9,3 +9,4 @@ import * as myModule from './js/pagination/pagination';
 import * as myModule from './js/pagination/searchFilmPaginationAndRenderCard';
 import * as myModule from './js/firebase-home';
 import * as myModule from './js/button-up';
+import * as myModule from './js/theme';

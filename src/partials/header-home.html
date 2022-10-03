@@ -35,6 +35,44 @@
         Search result not successful. Enter the correct movie name.
       </p>
     </form>
+    <div class="container toolbar">
+			<div class="theme-switch">
+				<svg
+					class="theme-switch-icon"
+					width="20px"
+					height="20px"
+					role="img"
+					aria-label="Іконка сонця"
+				>
+					<use href="./image/symbol-defs.svg#sun"></use>
+				</svg>
+
+				<div class="theme-switch-control">
+					<input
+						class="theme-switch-toggle"
+						type="checkbox"
+						name="theme"
+						id="theme-switch-toggle"
+						aria-label="Перемикач теми"
+					/>
+					<label
+						aria-hidden="true"
+						class="theme-switch-track"
+						for="theme-switch-toggle"
+					></label>
+					<div aria-hidden="true" class="theme-switch-marker"></div>
+				</div>
+
+				<svg
+					class="theme-switch-icon"
+					width="20px"
+					height="20px"
+					aria-label="Іконка місяця"
+				>
+					<use href="./image/symbol-defs.svg#moon"></use>
+				</svg>
+			</div>
+		</div>
     <div class="container error-container"></div>
   </div>
 </header>
