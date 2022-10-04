@@ -7,7 +7,6 @@ export const refs = {
   emptyWrap: document.querySelector('.library__empty-wrap'),
 };
 let watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
-console.log(watchedLibraryList);
 let queueLibraryList = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 if (refs.watched) {
   refs.watched.addEventListener('click', onLibraryWatchedClick);
