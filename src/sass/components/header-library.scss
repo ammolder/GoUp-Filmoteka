@@ -1,6 +1,6 @@
 .header-library {
   padding-top: 40px;
-  padding-bottom: 92px;
+  padding-bottom: 40px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -16,7 +16,7 @@
   }
 
   @media (min-width: 1280px) {
-    padding-bottom: 84px;
+    padding-bottom: 44px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url(../image/header-Lib-desk1x.webp);
     @media (min-device-pixel-ratio: 2),
@@ -66,9 +66,26 @@
   height: 24px;
   margin-right: 10px;
   stroke: var(--primary-text-color);
-
+  animation: SVGrotate 6s infinite;
   @media screen and (min-width: 1280px) {
     margin-right: 10px;
+  }
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes SVGrotate {
+  // 0% {
+  //   transform: rotate(0deg);
+  // }
+  // 50% {
+  //   transform: rotate(360deg);
+  // }
+  100% {
+    transform: rotate(360deg);
   }
 }
 .header-library-nav__text {
