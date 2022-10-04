@@ -72,9 +72,26 @@
   margin-bottom: auto;
   margin-right: 8px;
   stroke: var(--primary-text-color);
-
+  animation: SVGrotate 6s infinite;
   @media screen and (min-width: $desktop) {
     margin-right: 10px;
+  }
+}
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes SVGrotate {
+  // 0% {
+  //   transform: rotate(0deg);
+  // }
+  // 50% {
+  //   transform: rotate(360deg);
+  // }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

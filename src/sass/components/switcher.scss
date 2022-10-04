@@ -1,22 +1,27 @@
 .switcher {
-  position: absolute;
-  top: 7;
-  left: 35%;
-  @media screen and (min-width: $tablet) {
-    top: 10;
-    left: 44%;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 36px;
+  width: 32px;
   height: 15px;
   @media screen and (min-width: $tablet) {
     width: 36px;
     height: 19px;
   }
+}
+.theme-switch-icon {
+  fill: var(--btn-accent-color);
+  stroke: var(--btn-accent-color);
+  height: 100%;
+  width: 100%;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .switch input {
@@ -70,12 +75,10 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.switcher {
-  display: flex;
-  align-items: center;
-}
-
 .switcher-theme-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   outline: none;
   border: none;
