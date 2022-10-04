@@ -18,8 +18,6 @@ if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
   queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 }
 
-console.log(watchedStorage);
-
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
 }
@@ -30,14 +28,12 @@ export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
   if (cardId) {
     responseCardDetails = await getApiDetails(cardId);
-    // console.log(responseCardDetails.data);
     modal(responseCardDetails.data);
     document.body.style.position = 'fixed';
     document.body.style.top = `-${window.scrollY}px`;
     const buttonWatched = document.querySelector('#library-wathed');
     const buttonQueue = document.querySelector('#library-queue');
     const firebaseAcces = JSON.parse(localStorage.getItem('my-loginUser'));
-    console.log(firebaseAcces);
     if (!firebaseAcces) {
       buttonWatched.style.display = 'none';
       buttonQueue.style.display = 'none';
@@ -61,7 +57,6 @@ export async function onClickCard(evt) {
       buttonQueue.classList.add('remove');
     }
 
-    console.log(buttonWatched);
     const modalOverlay = document.querySelector('.backdrop');
     modalOverlay.addEventListener('click', onClickModal);
     document.addEventListener('keydown', keyDown);
@@ -71,7 +66,6 @@ export async function onClickCard(evt) {
 export function onClickModal(evt) {
   // console.dir(evt.target);
   const modalOverlay = document.querySelector('.backdrop');
-  // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {
     modalOverlay.remove();
     const scrollY = document.body.style.top;
@@ -120,7 +114,7 @@ export function onWatchedClick(evt) {
       });
 
       watchedStorage = filtredFilms;
-      console.log(watchedStorage);
+
       if (watchedStorage.length !== 0) {
         renderLibraryGallery(watchedStorage);
       } else {
