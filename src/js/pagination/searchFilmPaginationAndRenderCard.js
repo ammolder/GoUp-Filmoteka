@@ -1,4 +1,9 @@
 import axios from 'axios';
+
+import image1 from '../../image/sample1.jpg';
+import image2 from '../../image/sample2.jpg';
+import image3 from '../../image/sample3.jpg';
+
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import genres from '../../genres.json';
@@ -28,8 +33,10 @@ async function fetchMovies(query, page) {
 const fetchSearchMoviesResultsAPI = new FetchMoviesAPI(
   APIEndPoints.searchMovie
 );
-
+const galleryContainerMovies = document.querySelector('.card__list');
 const formSearch = document.querySelector('.header-search');
+const errorText = document.querySelector('.request-paragraph');
+const emptyWrap = document.querySelector('.home__empty-wrap');
 
 let query = '';
 let page = 1;
@@ -37,23 +44,40 @@ let page = 1;
 if (formSearch) {
   formSearch.addEventListener('submit', onSearchMovies);
 }
+
+
+function noMovie() {
+emptyWrap.classList.remove('hidden-nothing')
+}
+
 function onSearchMovies(event) {
   event.preventDefault();
   console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
-  // query = event.currentTarget.elements.text.value;
 
-  // if (!query) {
-  //   onResultSearchError();
-  //   return;
-  // }
+  if (!query) {
+    errorText.classList.remove('visually-hidden');
+    setTimeout(() => {
+      errorText.classList.add('visually-hidden');
+    }, 3000);
+ 
+    return;
+  }
 
   fetchMovies(query, page).then(({ data }) => {
     if (!data.total_results) {
-      onResultSearchError();
-    } else {
-      // clearGalleryMarkup();
+      errorText.classList.remove('visually-hidden');
+      setTimeout(() => {
+        errorText.classList.add('visually-hidden');
+      }, 3000);
+      galleryContainerMovies.classList.add('visually-hidden'); 
+      pagination(1);
+      noMovie();
 
+    } else {
+emptyWrap.classList.add('hidden-nothing')
+      clearGalleryMarkup();
+galleryContainerMovies.classList.remove('visually-hidden'); 
       renderCardMovies(data.results);
 
       const paginationItemsContainer = document.querySelector(
@@ -73,6 +97,7 @@ function onSearchMovies(event) {
     }
   });
 }
+
 
 export async function onSearchPaginationClick({ target }) {
   if (
@@ -94,16 +119,16 @@ export async function onSearchPaginationClick({ target }) {
     console.log('ERROR CODE: ', err.code);
   }
 
-  // clearGalleryMarkup();
+  clearGalleryMarkup();
 
   const galleryMarkup = renderCardMovies(response.data.results);
 
   pagination(response.data.page, response.data.total_pages);
 }
 
-// function clearGalleryMarkup() {
-//   galleryContainerMovies.innerHTML = '';
-// }
+function clearGalleryMarkup() {
+  galleryContainerMovies.innerHTML = '';
+}
 export function findGenresOfMovie(ids) {
   const arr = ids.flatMap(id => genres.filter(element => element.id === id));
   const movieGenres = arr.map(el => el.name);
@@ -116,41 +141,45 @@ export function findGenresOfMovie(ids) {
   return movieGenres.join(', ');
 }
 
-const galleryContainerMovies = document.querySelector('.card__list');
+
 
 function renderCardMovies(movies) {
   const markup = movies
     .map(movie => {
+      const imagesStock = [image1, image2, image3];
+      let randomImages = Math.floor(Math.random() * imagesStock.length);
+      let images = imagesStock[randomImages];
       const { poster_path, title, genre_ids, release_date, id } = movie;
       const date = new Date(release_date).getFullYear();
-      if (poster_path) {
-        return `
-           <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
-" data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
-          ${title} <br />
-          <span class="card__text">${findGenresOfMovie(
-            genre_ids
-          )} | ${date}</span>
-        </p>
-      </div>`;
-      }
+
       return `
            <div class="card" data-id="${id}" id="${id}">
-        <img class="card__img"  src="" alt="${title}
-" data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+           ${
+             poster_path
+               ? `<img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}"  alt="${title}
+" data-id="${id}"/>`
+               : `<img class="card__img" src=${images}  alt="${title}
+" data-id="${id}"/>`
+           }
+        
+        <p class="card__title" data-id="${id}">
           ${title} <br />
-          <span class="card__text">${findGenresOfMovie(
-            genre_ids
-          )} | ${date}</span>
+          <span class="card__text">${
+            findGenresOfMovie(genre_ids)
+              ? findGenresOfMovie(genre_ids)
+              : 'Unknown'
+          } | ${date ? date : 'Unknown'}</span>
         </p>
       </div>`;
     })
     .join('');
 
   galleryContainerMovies.innerHTML = markup;
-
-  // galleryContainerMovies.insertAdjacentHTML('beforeend', markup);
+  window.scrollTo({
+    top: 100,
+    left: 100,
+    behavior: 'smooth',
+  });
 }
+
+

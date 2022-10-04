@@ -7,3 +7,8 @@ import * as myModule from './js/pagination/fetchMoviesAPI';
 import * as myModule from './js/pagination/pagination';
 import * as myModule from './js/pagination/searchFilmPaginationAndRenderCard';
 import * as myModule from './js/firebase-home';
+import * as myModule from './js/localstorageLibrary';
+import * as myModule from './js/modal-students';
+import * as myModule from './js/slider';
+import * as myModule from './js/button-up';
+import * as myModule from './js/pagination/classLocalStorage';

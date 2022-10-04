@@ -1,13 +1,24 @@
 import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
+import { renderLibraryGallery } from './localstorageLibrary';
+import { refs } from './localstorageLibrary';
 
+export const STORAGE_WATCHED_KEY = 'watched-films-lib';
+export const STORAGE_QUEUE_KEY = 'queue-films-lib';
 const cardList = document.querySelector('.card__list');
+const emptyWrap = document.querySelector('.library__empty-wrap');
+const cardListLibrary = document.querySelector('.card__list-library');
 
 let responseCardDetails = null;
 let watchedStorage = [];
 let queueStorage = [];
+if (JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY))) {
+  watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+}
+if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
+  queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+}
 
-const cardListLibrary = document.querySelector('.card__list-library');
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
 }
@@ -21,7 +32,36 @@ export async function onClickCard(evt) {
     responseCardDetails = await getApiDetails(cardId);
     // console.log(responseCardDetails.data);
     modal(responseCardDetails.data);
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
+    const buttonWatched = document.querySelector('#library-wathed');
+    const buttonQueue = document.querySelector('#library-queue');
+    const firebaseAcces = JSON.parse(localStorage.getItem('my-loginUser'));
+    console.log(firebaseAcces);
+    if (!firebaseAcces) {
+      buttonWatched.style.display = 'none';
+      buttonQueue.style.display = 'none';
+    }
+    if (
+      watchedStorage.length !== 0 &&
+      watchedStorage.find(film => {
+        return +responseCardDetails.data.id === +film.id;
+      })
+    ) {
+      buttonWatched.textContent = 'REMOVE FROM WATCHED';
+      buttonWatched.classList.add('remove');
+    }
+    if (
+      queueStorage.length !== 0 &&
+      queueStorage.find(film => {
+        return +responseCardDetails.data.id === +film.id;
+      })
+    ) {
+      buttonQueue.textContent = 'REMOVE FROM QUEUE';
+      buttonQueue.classList.add('remove');
+    }
 
+    console.log(buttonWatched);
     const modalOverlay = document.querySelector('.backdrop');
     modalOverlay.addEventListener('click', onClickModal);
     document.addEventListener('keydown', keyDown);
@@ -34,6 +74,10 @@ export function onClickModal(evt) {
   // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {
     modalOverlay.remove();
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
     document.removeEventListener('keydown', keyDown);
   }
 }
@@ -41,6 +85,10 @@ export function onClickModal(evt) {
 export function onBtnCloseClick() {
   const modalBackdrop = document.querySelector('.backdrop');
   modalBackdrop.remove();
+  const scrollY = document.body.style.top;
+  document.body.style.position = '';
+  document.body.style.top = '';
+  window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 export function keyDown(evt) {
@@ -48,55 +96,57 @@ export function keyDown(evt) {
   document.addEventListener('keydown', keyDown);
   if (evt.key === 'Escape') {
     modalOverlay.remove();
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
     document.removeEventListener('keydown', keyDown);
   }
 }
-
-const STORAGE_WATCHED_KEY = 'watched-films-lib';
-const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
 export function onWatchedClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM WATCHED';
   button.classList.add('remove');
-  let watchedParsed = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
-  console.log(watchedParsed);
-  if (watchedParsed !== null) {
-    for (let i = 0; i < watchedParsed.length; i += 1) {
-      if (+responseCardDetails.data.id === +watchedParsed[i].id) {
-        // console.log(i);
-        // console.log('watchedStorage :', watchedStorage);
-        // console.log(
-        //   ' watchedS parsed:',
-        //   (watchedStorage = JSON.parse(
-        //     localStorage.getItem(STORAGE_WATCHED_KEY)
-        //   ))
-        // );
-        // // watchedStorage = JSON.parse(
-        // //   localStorage.getItem(STORAGE_WATCHED_KEY)
-        // // ).splice(i, 1);
-        // // console.log(watchedStorage);
-        // // localStorage.setItem(
-        // //   STORAGE_WATCHED_KEY,
-        // //   JSON.stringify(watchedStorage)
-        // // );
+  // watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+  if (watchedStorage.length !== 0) {
+    let findFilm = watchedStorage.find(film => {
+      return +responseCardDetails.data.id === +film.id;
+    });
 
-        // console.log('id local:', watchedParsed[i].id);
-        // console.log('response.id :', responseCardDetails.data.id);
-        // console.log(+responseCardDetails.data.id === +watchedParsed[i].id);
-        return;
+    if (findFilm) {
+      const filtredFilms = watchedStorage.filter(film => {
+        return +responseCardDetails.data.id !== +film.id;
+      });
+
+      watchedStorage = filtredFilms;
+
+      if (
+        watchedStorage.length !== 0 &&
+        refs.watched.classList.contains('active_btn')
+      ) {
+        renderLibraryGallery(watchedStorage);
+      } else if (watchedStorage.length !== 0 || watchedStorage.length === 0) {
+        renderLibraryGallery(queueStorage);
+      } else {
+        if (cardListLibrary) {
+          cardListLibrary.innerHTML = '';
+          emptyWrap.classList.remove('hidden-nothing');
+        }
       }
-    }
-  }
+      localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
+      const buttonWatched = document.querySelector('#library-wathed');
+      buttonWatched.textContent = 'ADD TO WATCHED';
+      buttonWatched.classList.remove('remove');
 
-  if (localStorage.getItem(STORAGE_WATCHED_KEY)) {
-    watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+      return;
+    }
     watchedStorage.push(responseCardDetails.data);
     localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
     return;
   }
+
   watchedStorage.push(responseCardDetails.data);
-  console.log(watchedStorage);
   localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
 }
 
@@ -104,21 +154,44 @@ export function onQueueClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM QUEUE';
   button.classList.add('remove');
-  let queueParsed = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
-  if (queueParsed !== null) {
-    for (let i = 0; i < queueParsed.length; i += 1) {
-      if (+responseCardDetails.data.id === +queueParsed[i].id) {
-        return;
+
+  if (queueStorage.length !== 0) {
+    let findFilm = queueStorage.find(film => {
+      return +responseCardDetails.data.id === +film.id;
+    });
+
+    if (findFilm) {
+      const filtredFilms = queueStorage.filter(film => {
+        return +responseCardDetails.data.id !== +film.id;
+      });
+
+      queueStorage = filtredFilms;
+
+      if (
+        queueStorage.length !== 0 &&
+        refs.queue.classList.contains('active_btn')
+      ) {
+        renderLibraryGallery(queueStorage);
+      } else if (queueStorage.length !== 0 || queueStorage.length === 0) {
+        renderLibraryGallery(watchedStorage);
+      } else {
+        if (cardListLibrary) {
+          cardListLibrary.innerHTML = '';
+          emptyWrap.classList.remove('hidden-nothing');
+        }
       }
+      localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
+      const buttonQueue = document.querySelector('#library-queue');
+      buttonQueue.textContent = 'ADD TO QUEUE';
+      buttonQueue.classList.remove('remove');
+
+      return;
     }
-  }
-  if (localStorage.getItem(STORAGE_QUEUE_KEY)) {
-    queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
     queueStorage.push(responseCardDetails.data);
     localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
     return;
   }
+
   queueStorage.push(responseCardDetails.data);
-  console.log(queueStorage);
   localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
 }

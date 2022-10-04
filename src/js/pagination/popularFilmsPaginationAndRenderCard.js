@@ -1,4 +1,5 @@
 import NewApi from './fetch-movies-homepg';
+import image from '../../image/card.jpg';
 import { pagination } from './pagination';
 import { FetchMoviesAPI } from './fetchMoviesAPI';
 import { onSearchPaginationClick } from './searchFilmPaginationAndRenderCard';
@@ -65,13 +66,19 @@ export async function onTrendingPaginationClick({ target }) {
 
   try {
     response = await fetchTrandingMovieAPI.fetchMovies();
+    //  window.scrollTo(0, 0, );
+    window.scrollTo({
+  top: 100,
+  left: 100,
+  behavior: 'smooth'
+});
   } catch (err) {
     console.log('ERROR: ', err.message);
     console.log('ERROR CODE: ', err.code);
   }
 
   const galleryMarkup = markupMovies(response.data.results);
-  // clearGalleryMarkup();
+
   renderGalleryMarkup(galleryMarkup);
 
   pagination(response.data.page, response.data.total_pages);
@@ -79,6 +86,9 @@ export async function onTrendingPaginationClick({ target }) {
 
 function renderGalleryMarkup(markup) {
   refs.gallery.innerHTML = markup;
+}
+function clearGalleryMarkup() {
+  galleryContainerMovies.innerHTML = '';
 }
 
 export function findGenresOfMovie(ids) {
@@ -92,16 +102,18 @@ export function findGenresOfMovie(ids) {
   }
   return movieGenres.join(', ');
 }
+const galleryContainerMovies = document.querySelector('.card__list');
+
 export function markupMovies(movies) {
   return movies
     .map(({ poster_path, title, genre_ids, release_date, id }) => {
       const date = new Date(release_date).getFullYear();
       if (poster_path) {
         return `
-      <li class="card" data-id="${id}">
+      <li class="card__item" data-id="${id}">
         <img class="card__img" src="https://image.tmdb.org/t/p/w400${poster_path}" alt="${title}" data-id="${id}"/>
         <div class="card__wrap" data-id="${id}">
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
@@ -112,7 +124,7 @@ export function markupMovies(movies) {
       return `
       <div class="card" data-id="${id}">
         <img class="card__img" src="" alt="${title}" data-id="${id}"/>
-        <p class="card__titel" data-id="${id}">
+        <p class="card__title" data-id="${id}">
         ${title} <br />
           <span class="card__text">${findGenresOfMovie(
             genre_ids
