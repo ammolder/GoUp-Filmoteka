@@ -45,14 +45,12 @@ if (formSearch) {
   formSearch.addEventListener('submit', onSearchMovies);
 }
 
-
 function noMovie() {
-emptyWrap.classList.remove('hidden-nothing')
+  emptyWrap.classList.remove('hidden-nothing');
 }
 
 function onSearchMovies(event) {
   event.preventDefault();
-  console.dir(event.currentTarget.elements);
   query = event.currentTarget.elements.querySearch.value;
 
   if (!query) {
@@ -60,7 +58,7 @@ function onSearchMovies(event) {
     setTimeout(() => {
       errorText.classList.add('visually-hidden');
     }, 3000);
- 
+
     return;
   }
 
@@ -70,14 +68,13 @@ function onSearchMovies(event) {
       setTimeout(() => {
         errorText.classList.add('visually-hidden');
       }, 3000);
-      galleryContainerMovies.classList.add('visually-hidden'); 
+      galleryContainerMovies.classList.add('visually-hidden');
       pagination(1);
       noMovie();
-
     } else {
-emptyWrap.classList.add('hidden-nothing')
+      emptyWrap.classList.add('hidden-nothing');
       clearGalleryMarkup();
-galleryContainerMovies.classList.remove('visually-hidden'); 
+      galleryContainerMovies.classList.remove('visually-hidden');
       renderCardMovies(data.results);
 
       const paginationItemsContainer = document.querySelector(
@@ -97,7 +94,6 @@ galleryContainerMovies.classList.remove('visually-hidden');
     }
   });
 }
-
 
 export async function onSearchPaginationClick({ target }) {
   if (
@@ -141,8 +137,6 @@ export function findGenresOfMovie(ids) {
   return movieGenres.join(', ');
 }
 
-
-
 function renderCardMovies(movies) {
   const markup = movies
     .map(movie => {
@@ -181,5 +175,3 @@ function renderCardMovies(movies) {
     behavior: 'smooth',
   });
 }
-
-
