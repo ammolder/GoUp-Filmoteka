@@ -7,7 +7,7 @@ export const refs = {
   gallery: document.querySelector('.card__list-library'),
   emptyWrap: document.querySelector('.library__empty-wrap'),
 };
-
+//
 let watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
 console.log(watchedLibraryList);
 let queueLibraryList = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
