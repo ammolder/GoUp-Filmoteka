@@ -28,12 +28,12 @@ async function render(data) {
     if (!item.poster_path) {
       refs.item[
         i
-      ].innerHTML = `<img class='slider__img' src="./image/card.jpg" alt="${item.title}" id='${item.id}'/>`;
+      ].innerHTML = `<img class='slider-js__img' src="./image/card.jpg" alt="${item.title}" id='${item.id}'/>`;
       return;
     }
     refs.item[
       i
-    ].innerHTML = `<img class='slider__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
+    ].innerHTML = `<img class='slider-js__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
   });
 }
 
@@ -44,7 +44,7 @@ import Glide, {
 } from '@glidejs/glide/dist/glide.modular.esm';
 
 new Glide('.glide', {
-  type: 'slider',
+  type: 'slider-js',
   startAt: 0,
   perView: 8,
   autoplay: 4000,
