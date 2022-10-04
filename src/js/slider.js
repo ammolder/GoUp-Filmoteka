@@ -44,7 +44,7 @@ import Glide, {
 } from '@glidejs/glide/dist/glide.modular.esm';
 
 new Glide('.glide', {
-  type: 'slider-js',
+  type: 'slider',
   startAt: 0,
   perView: 8,
   autoplay: 4000,
