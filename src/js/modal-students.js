@@ -17,15 +17,17 @@ function backdropClick(e) {
 }
 
 function openModal() {
+  document.addEventListener('keydown', onEsc);
   refs.modal.classList.remove('is-hidden');
 }
 function closeModal() {
   refs.modal.classList.add('is-hidden');
   document.removeEventListener('keydown', onEsc);
 }
-document.addEventListener('keydown', function (e) {
+
+function onEsc(e) {
   if (e.key === 'Escape') {
+    refs.modal.classList.add('is-hidden');
     closeModal();
   }
-  console.log(e);
-});
+}
