@@ -79,7 +79,7 @@
 .card__text {
   font-family: $base-font;
   font-weight: 500;
-  color: #ff6b08;
+  color: var(--accent-text-color);
   text-transform: capitalize;
 
   @media screen and (max-width: $max-mob) {
