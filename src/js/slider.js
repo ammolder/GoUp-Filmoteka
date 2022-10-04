@@ -41,8 +41,16 @@ async function render(data) {
   //   })
   //   .join('');
   data.forEach((item, i) => {
-    const eleItem = `<img class='slider__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
-    refs.item[i].innerHTML = eleItem;
+    if (!item.poster_path) {
+      console.log(item.poster_path);
+      refs.item[
+        i
+      ].innerHTML = `<img class='slider__img' src="./image/card.jpg" alt="${item.title}" id='${item.id}'/>`;
+      return;
+    }
+    refs.item[
+      i
+    ].innerHTML = `<img class='slider__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
   });
 
   refs.itemCard = document.querySelector('.slider__item');
