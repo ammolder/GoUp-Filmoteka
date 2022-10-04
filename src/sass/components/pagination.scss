@@ -1,104 +1,95 @@
- .pagination-container {
-     display: flex;
-     justify-content: center;
+.pagination-container {
+  display: flex;
+  justify-content: center;
 
-     padding: 40px 0px;
+  padding: 40px 0px;
+}
 
- }
+.pagination-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+  width: 50px;
+  height: 50px;
 
- .pagination-btn {
-     display: flex;
-     justify-content: center;
-     align-items: center;
+  background-color: var(--secondary-bg-color);
+  padding: 5px;
+  border-radius: 5px;
 
-     width: 50px;
-     height: 50px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.3;
 
-     background-color: var(--primary-text-color);
-     padding: 5px;
-     border-radius: 5px;
+  color: var(--primary-text-color-dark);
+  transition: box-shadow 250ms var(--timing-function);
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    //    border: solid #ff6b08 3px;
+    box-shadow: var(--btn-box-shadow);
+  }
+}
 
+.arrow-left {
+  background-image: url(../image/arrow-left.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 
-     font-weight: 500;
-     font-size: 15px;
-     line-height: 1.3;
+  &:hover,
+  &:focus {
+    background-image: url(../image/arrow-left.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+}
 
-     color: var(--primary-text-color-dark);
+.arrow-right {
+  color: transparent;
+  background-image: url(../image/arrow-right.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 
-     &:hover,
-     &:focus {
-         cursor: pointer;
-         //    border: solid #ff6b08 3px;
-         box-shadow: rgba(118, 66, 6, 0.526) 0px 4px 5px, rgba(179, 101, 12, 0.526) 0px 8px 5px;
+  &:hover,
+  &:focus {
+    background-image: url(../image/arrow-right.svg);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+}
 
-     }
+.pagination-btn.current {
+  background-color: var(--btn-accent-color);
+  color: var(--primary-text-color);
+  box-shadow: var(--btn-box-shadow);
+}
 
- }
+.pagination-btn.disabled {
+  cursor: default;
 
+  &:hover {
+    box-shadow: none;
+  }
+}
 
- .arrow-left {
-     background-image: url(../image/arrow-left.svg);
-     background-repeat: no-repeat;
-     background-position: 50% 50%;
+.pagination-btn.disabled.arrow-left {
+  background-color: var(--secondary-bg-color);
+  background-image: url(../image/arrow-left-grey.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 
-     &:hover,
-     &:focus {
-         background-image: url(../image/arrow-left.svg);
-         background-repeat: no-repeat;
-         background-position: 50% 50%;
+  &:hover {
+    border: none;
+  }
+}
 
-     }
- }
+.pagination-btn.disabled.arrow-right {
+  background-color: var(--secondary-bg-color);
+  background-image: url(../image/arrow-right-grey.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
 
- .arrow-right {
-     color: transparent;
-     background-image: url(../image/arrow-right.svg);
-     background-repeat: no-repeat;
-     background-position: 50% 50%;
-
-     &:hover,
-     &:focus {
-         background-image: url(../image/arrow-right.svg);
-         background-repeat: no-repeat;
-         background-position: 50% 50%;
-     }
-
- }
-
-
- .pagination-btn.current {
-     background-color: var(--accent-text-color);
-     color: var(--primary-text-color);
-     box-shadow: rgba(118, 66, 6, 0.526) 0px 4px 5px, rgba(179, 101, 12, 0.526) 0px 8px 5px;
- }
-
- .pagination-btn.disabled {
-     cursor: default;
-
-     &:hover {
-         box-shadow: none;
-     }
- }
-
- .pagination-btn.disabled.arrow-left {
-     background-color: var(--primary-text-color);
-     background-image: url(../image/arrow-left-grey.svg);
-     background-repeat: no-repeat;
-     background-position: 50% 50%;
-
-     &:hover {
-         border: none;
-     }
- }
-
- .pagination-btn.disabled.arrow-right {
-     background-color: var(--primary-text-color);
-     background-image: url(../image/arrow-right-grey.svg);
-     background-repeat: no-repeat;
-     background-position: 50% 50%;
- }
-
- .pagination-btn+.pagination-btn {
-     margin-left: 5px;
- }
+.pagination-btn + .pagination-btn {
+  margin-left: 5px;
+}
