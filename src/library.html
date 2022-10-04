@@ -16,6 +16,8 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
+    <div id="loader" class="center"></div>
+    <div id="loading"></div>
     <div class="wrapper">
       <include src="./partials/header-library.html"></include>
       <include src="./partials/container-library.html"></include>
@@ -24,5 +26,18 @@
       <include src="./partials/modal-film.html"></include>
       <include src="./partials/modal-students.html"></include>
     </div>
+    <script>
+      document.onreadystatechange = function () {
+        setTimeout(() => {
+          if (document.readyState !== 'complete') {
+            document.querySelector('body').style.visibility = 'hidden';
+            document.querySelector('#loader').style.visibility = 'visible';
+          } else {
+            document.querySelector('#loader').style.display = 'none';
+            document.querySelector('body').style.visibility = 'visible';
+          }
+        }, 1000);
+      };
+    </script>
   </body>
 </html>
