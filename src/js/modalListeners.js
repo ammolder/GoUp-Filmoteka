@@ -1,7 +1,6 @@
 import { modal } from './modalRender';
 import { getApiDetails } from './getFIlmDetails';
 import { renderLibraryGallery } from './localstorageLibrary';
-import { refs } from './localstorageLibrary';
 
 export const STORAGE_WATCHED_KEY = 'watched-films-lib';
 export const STORAGE_QUEUE_KEY = 'queue-films-lib';
@@ -19,6 +18,8 @@ if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
   queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 }
 
+console.log(watchedStorage);
+
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
 }
@@ -27,7 +28,6 @@ if (cardListLibrary) {
 }
 export async function onClickCard(evt) {
   const cardId = evt.target.dataset.id;
-
   if (cardId) {
     responseCardDetails = await getApiDetails(cardId);
     // console.log(responseCardDetails.data);
@@ -69,7 +69,7 @@ export async function onClickCard(evt) {
 }
 
 export function onClickModal(evt) {
-  console.log(evt.target);
+  // console.dir(evt.target);
   const modalOverlay = document.querySelector('.backdrop');
   // modalOverlay.addEventListener('click', onClickModal);
   if (evt.target === modalOverlay) {
@@ -108,7 +108,7 @@ export function onWatchedClick(evt) {
   button = evt.currentTarget;
   button.textContent = 'REMOVE FROM WATCHED';
   button.classList.add('remove');
-  // watchedStorage = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+
   if (watchedStorage.length !== 0) {
     let findFilm = watchedStorage.find(film => {
       return +responseCardDetails.data.id === +film.id;
@@ -120,19 +120,12 @@ export function onWatchedClick(evt) {
       });
 
       watchedStorage = filtredFilms;
-
-      if (
-        watchedStorage.length !== 0 &&
-        refs.watched.classList.contains('active_btn')
-      ) {
+      console.log(watchedStorage);
+      if (watchedStorage.length !== 0) {
         renderLibraryGallery(watchedStorage);
-      } else if (watchedStorage.length !== 0 || watchedStorage.length === 0) {
-        renderLibraryGallery(queueStorage);
       } else {
-        if (cardListLibrary) {
-          cardListLibrary.innerHTML = '';
-          emptyWrap.classList.remove('hidden-nothing');
-        }
+        cardListLibrary.innerHTML = '';
+        emptyWrap.classList.remove('hidden-nothing');
       }
       localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
       const buttonWatched = document.querySelector('#library-wathed');
@@ -166,19 +159,11 @@ export function onQueueClick(evt) {
       });
 
       queueStorage = filtredFilms;
-
-      if (
-        queueStorage.length !== 0 &&
-        refs.queue.classList.contains('active_btn')
-      ) {
+      if (queueStorage.length !== 0) {
         renderLibraryGallery(queueStorage);
-      } else if (queueStorage.length !== 0 || queueStorage.length === 0) {
-        renderLibraryGallery(watchedStorage);
       } else {
-        if (cardListLibrary) {
-          cardListLibrary.innerHTML = '';
-          emptyWrap.classList.remove('hidden-nothing');
-        }
+        cardListLibrary.innerHTML = '';
+        emptyWrap.classList.remove('hidden-nothing');
       }
       localStorage.setItem(STORAGE_QUEUE_KEY, JSON.stringify(queueStorage));
       const buttonQueue = document.querySelector('#library-queue');

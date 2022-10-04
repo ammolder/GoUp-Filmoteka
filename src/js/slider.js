@@ -11,8 +11,10 @@ import axios from 'axios';
 // // });
 // console.log(fetchMovies());
 const refs = {
-  lisrTopFilms: document.querySelector('.slider__list'),
+  lisrTopFilms: document.querySelector('.glide__slides'),
+  item: document.querySelectorAll('.glide__slide'),
 };
+console.log(refs.item);
 
 const API_KEY = '77e7936073a1f82fbc0d3a17a985fb5b';
 const URL = 'https://api.themoviedb.org/3';
@@ -30,30 +32,47 @@ async function getMovies() {
 }
 getMovies();
 
-function render(data) {
-  const list = data
-    .map(item => {
-      return `
-        <li class="slider__item" id='${item.id}'>
-      <img src="${IMG}${item.poster_path}" alt="${item.title}"/>
-    </li>`;
-    })
-    .join('');
-  // console.log(list);
-  if (refs.lisrTopFilms) {
-    refs.lisrTopFilms.insertAdjacentHTML('beforeend', list);
-  }
+async function render(data) {
+  // const list = data
+  //   .map(item => {
+  //     return `
+  //     <img class='slider__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}/>
+  //     `
+  //   })
+  //   .join('');
+  data.forEach((item, i) => {
+    const eleItem = `<img class='slider__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
+    refs.item[i].innerHTML = eleItem;
+  });
+
   refs.itemCard = document.querySelector('.slider__item');
-  //   refs.itemCard.addEventListener('click', removeClassHidden);
 }
 
-// setInterval(() => {
-//   console.log('setInterval');
-// }, 7000);
+import Glide, {
+  Controls,
+  Breakpoints,
+  Autoplay,
+} from '@glidejs/glide/dist/glide.modular.esm';
 
-// $('.autoplay').slick({
-//   slidesToShow: 3,
-//   slidesToScroll: 1,
-//   autoplay: true,
-//   autoplaySpeed: 2000,
-// });
+new Glide('.glide', {
+  type: 'slider',
+  startAt: 0,
+  perView: 8,
+  autoplay: 4000,
+  hoverpause: true,
+  bound: true,
+  breakpoints: {
+    1280: {
+      perView: 7,
+    },
+    768: {
+      perView: 6,
+    },
+    480: {
+      perView: 3,
+    },
+    320: {
+      perView: 2,
+    },
+  },
+}).mount({ Controls, Breakpoints, Autoplay });
