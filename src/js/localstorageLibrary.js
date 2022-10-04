@@ -1,3 +1,5 @@
+import { localStoragePagination } from './pagination/pagination';
+
 const STORAGE_WATCHED_KEY = 'watched-films-lib';
 const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
@@ -8,9 +10,18 @@ export const refs = {
   emptyWrap: document.querySelector('.library__empty-wrap'),
 };
 
-let watchedLibraryList = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
-console.log(watchedLibraryList);
-let queueLibraryList = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+const watchedFilms = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+const queueFilms = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+
+let page = localStoragePagination._pageNumber;
+const step = 9;
+
+export function getItemsForPage(library) {
+  return library.slice((page - 1) * step, page * step);
+}
+
+let watchedLibraryList = getItemsForPage(watchedFilms);
+let queueLibraryList = getItemsForPage(queueFilms);
 if (refs.watched) {
   refs.watched.addEventListener('click', onLibraryWatchedClick);
 }

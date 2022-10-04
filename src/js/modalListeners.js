@@ -19,8 +19,6 @@ if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
   queueStorage = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
 }
 
-console.log(watchedStorage);
-
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
 }

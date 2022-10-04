@@ -39,7 +39,7 @@ function render(data) {
     </li>`;
     })
     .join('');
-  console.log(list);
+  // console.log(list);
   if (refs.lisrTopFilms) {
     refs.lisrTopFilms.insertAdjacentHTML('beforeend', list);
   }

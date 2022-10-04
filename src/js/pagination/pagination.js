@@ -1,7 +1,18 @@
+import { LocalStorPag } from './classLocalStorage';
+import { pagination } from './pagination';
 const paginationContainer = document.querySelector('.pagination-container');
-paginationContainer.addEventListener('click', onPagination);
+const paginationLabContainer = document.querySelector(
+  '.pagination-lab-container'
+);
+const STORAGE_WATCHED_KEY = 'watched-films-lib';
+const STORAGE_QUEUE_KEY = 'queue-films-lib';
 
-window.globalCurrentPage = null;
+if (paginationContainer) {
+  paginationContainer.addEventListener('click', onPagination);
+}
+if (paginationLabContainer) {
+  paginationLabContainer.addEventListener('click', onPagination);
+}
 
 export function pagination(page, totalPages) {
   const beforeToPage = page - 2;
@@ -47,20 +58,43 @@ export function pagination(page, totalPages) {
     markup += '<li class="pagination-btn arrow-right disabled">N</li>';
   }
 
-  paginationContainer.innerHTML = markup;
+  if (paginationContainer) {
+    paginationContainer.innerHTML = markup;
+  }
+  if (paginationLabContainer) {
+    paginationLabContainer.innerHTML = markup;
+  }
 
-  const containerItems = [...paginationContainer.children];
+  if (paginationContainer) {
+    const containerItems = [...paginationContainer.children];
 
-  containerItems.forEach(item => {
-    if (Number(item.textContent) === globalCurrentPage) {
-      item.classList.add('current');
-    }
-  });
+    containerItems.forEach(item => {
+      if (Number(item.textContent) === globalCurrentPage) {
+        item.classList.add('current');
+      }
+    });
+  }
+  if (paginationLabContainer) {
+    const containerItems = [...paginationLabContainer.children];
+
+    containerItems.forEach(item => {
+      if (Number(item.textContent) === globalCurrentPage) {
+        item.classList.add('current');
+      }
+    });
+  }
 }
 
+// notWork
+
 function onPagination({ target }) {
-  if (target.nodeName !== 'LI' ||
-    target.classList.contains('request-paragraph')  ) {
+  // paginationLabContainer.setAttribute('page', `${target.textContent}`);
+  +target.textContent;
+  console.log(' +target.textContent :', +target.textContent);
+  if (
+    target.nodeName !== 'LI' ||
+    target.classList.contains('request-paragraph')
+  ) {
     return;
   }
 
@@ -86,12 +120,43 @@ function onPagination({ target }) {
   globalCurrentPage = Number(target.textContent);
 }
 
+const watchedFilms = JSON.parse(localStorage.getItem(STORAGE_WATCHED_KEY));
+const queueFilms = JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY));
+let pageNumber = 2;
+console.log('pageNumber :', pageNumber);
 
+export const localStoragePagination = new LocalStorPag(
+  watchedFilms,
+  queueFilms,
+  pageNumber
+);
 
+function bbb(hi) {
+  return (pageNumber = hi);
+}
+console.log('pageNumber :', pageNumber);
 
+function createdTotalPage(object) {
+  if (object !== null) {
+    const totalPages = Math.ceil(object.length / 9);
 
+    return totalPages;
+  }
+}
+pagination(
+  localStoragePagination.pageNumber,
+  createdTotalPage(localStoragePagination.watchedFilms)
+);
 
-
-
-
-
+// if (refs.watched.classList.contains('active_btn')) {
+//   pagination(
+//     localStoragePagination.pageNumber,
+//     createdTotalPage(localStoragePagination.watchedFilms)
+//   );
+// }
+// if (refs.queue.classList.contains('active_btn')) {
+//   pagination(
+//     localStoragePagination.pageNumber,
+//     createdTotalPage(localStoragePagination.queueFilms)
+//   );
+// }
