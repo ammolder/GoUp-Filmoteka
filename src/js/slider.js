@@ -47,7 +47,8 @@ new Glide('.glide', {
   type: 'slider',
   startAt: 0,
   perView: 8,
-  autoplay: 4000,
+  autoplay: 5000,
+  animationDuration: 2000,
   hoverpause: true,
   bound: true,
   breakpoints: {
