@@ -87,8 +87,19 @@
     height: 478px;
   }
 }
+.modal-iframe {
+  content: '';
+  position: absolute;
+  visibility: hidden;
+  border: 0px;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .modal-picture {
+  position: relative;
   @media screen and (min-width: $tablet) and (max-width: $desktop) {
     margin-right: 68px;
   }
