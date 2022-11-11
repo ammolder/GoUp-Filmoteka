@@ -98,7 +98,7 @@ export function keyDown(evt) {
   }
 }
 export function onWatchedClick(evt) {
-  button = evt.currentTarget;
+  const button = evt.currentTarget;
   button.textContent = 'REMOVE FROM WATCHED';
   button.classList.add('remove');
 
@@ -138,7 +138,7 @@ export function onWatchedClick(evt) {
   localStorage.setItem(STORAGE_WATCHED_KEY, JSON.stringify(watchedStorage));
 }
 export function onQueueClick(evt) {
-  button = evt.currentTarget;
+  const button = evt.currentTarget;
   button.textContent = 'REMOVE FROM QUEUE';
   button.classList.add('remove');
   if (queueStorage.length !== 0) {
