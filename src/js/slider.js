@@ -47,10 +47,11 @@ new Glide('.glide', {
   type: 'slider',
   startAt: 0,
   perView: 8,
-  autoplay: 5000,
-  animationDuration: 2000,
+  autoplay: 3000,
+  animationDuration: 1000,
   hoverpause: true,
   bound: true,
+
   breakpoints: {
     1280: {
       perView: 7,
