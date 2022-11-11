@@ -28,12 +28,12 @@ async function render(data) {
     if (!item.poster_path) {
       refs.item[
         i
-      ].innerHTML = `<img class='slider-js__img' src="./image/card.jpg" alt="${item.title}" id='${item.id}'/>`;
+      ].innerHTML = `<img class='slider-js__img' src="./image/card.jpg" alt="${item.title}" id='${item.id} data-id='${item.id}'/>`;
       return;
     }
     refs.item[
       i
-    ].innerHTML = `<img class='slider-js__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
+    ].innerHTML = `<img class='slider-js__img' src="${IMG}${item.poster_path}" alt="${item.title}" data-id='${item.id}='${item.id}'/>`;
   });
 }
 
