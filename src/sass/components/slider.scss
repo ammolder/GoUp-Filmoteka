@@ -125,9 +125,16 @@
   &__bullet {
     background-color: rgba(57, 0, 9, 0.2);
     box-shadow: 1px 2px 3px rgba(57, 0, 9, 0.2);
-    &:focus,
+
+    &:focus-visible,
     &:hover {
       background-color: var(--btn-accent-color);
+      border: 0;
+    }
+    &:focus {
+      background-color: rgba(57, 0, 9, 0.2);
+      box-shadow: 1px 2px 3px rgba(57, 0, 9, 0.2);
+      border: 0;
     }
   }
 
