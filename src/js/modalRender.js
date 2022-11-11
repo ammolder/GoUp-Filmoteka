@@ -24,6 +24,7 @@ export function modal(data) {
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
+            ${`<iframe class="modal-picture__image modal-iframe"  src="https://www.youtube.com/embed/${data.videos.results[0].key} " allowfullscreen></iframe>`}
             ${
               data.poster_path
                 ? `<img class="modal-picture__image" src= 
