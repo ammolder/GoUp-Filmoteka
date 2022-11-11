@@ -5,6 +5,7 @@ import { refs } from './localstorageLibrary';
 export const STORAGE_WATCHED_KEY = 'watched-films-lib';
 export const STORAGE_QUEUE_KEY = 'queue-films-lib';
 const cardList = document.querySelector('.card__list');
+const cardListSlider = document.querySelector('.glide__slides');
 const emptyWrap = document.querySelector('.library__empty-wrap');
 const cardListLibrary = document.querySelector('.card__list-library');
 let responseCardDetails = null;
@@ -19,6 +20,9 @@ if (JSON.parse(localStorage.getItem(STORAGE_QUEUE_KEY))) {
 
 if (cardList) {
   cardList.addEventListener('click', onClickCard);
+}
+if (cardListSlider) {
+  cardListSlider.addEventListener('click', onClickCard);
 }
 if (cardListLibrary) {
   cardListLibrary.addEventListener('click', onClickCard);
