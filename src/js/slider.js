@@ -1,6 +1,6 @@
 const refs = {
-  lisrTopFilms: document.querySelector('.glide__slides'),
-  item: document.querySelectorAll('.glide__slide'),
+  lisrTopFilms: document.querySelector('.swiper-wrapper'),
+  // item: document.querySelectorAll('.glide__slide'),
 };
 
 if (!refs.lisrTopFilms) {
@@ -24,46 +24,106 @@ async function getMovies() {
 getMovies();
 
 async function render(data) {
-  data.forEach((item, i) => {
-    if (!item.poster_path) {
-      refs.item[
-        i
-      ].innerHTML = `<img class='slider-js__img' src="./image/card.jpg" alt="${item.title}" id='${item.id}'/>`;
-      return;
-    }
-    refs.item[
-      i
-    ].innerHTML = `<img class='slider-js__img' src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}'/>`;
+  console.log(data);
+  const listCardMovies = data
+    .map(item => {
+      const cardMovies = !item.poster_path
+        ? `<div class="swiper-slider__wrapper swiper-slide">
+  <img
+    class="slide-img"
+    src="./image/card.jpg" alt="${item.title}" id='${item.id}
+    width="200"
+  />
+</div>`
+        : `<div class="swiper-slider__wrapper swiper-slide">
+  <img
+    class="slide-img"
+   src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}
+    width="200"
+  />
+</div>`;
+      return cardMovies;
+    })
+    .join(' ');
+
+  refs.lisrTopFilms.insertAdjacentHTML('beforeend', listCardMovies);
+
+  new Swiper('.swiper', {
+    disableOnInteraction: true,
+    slidesPerView: 9,
+    slidesPerGroup: 1,
+    spaceBetween: 65,
+    speed: 4000,
+    centralSlides: true,
+    loop: true,
+
+    grabCursor: true,
+    effect: 'coverflow',
+    coverflowEffect: {
+      depth: 70,
+      rotate: 8,
+      stretch: 50,
+      slideShadows: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      deley: 3000,
+      stopOnLastSlide: false,
+      disableOnInteraction: false,
+    },
+    speed: 800,
+    freeMode: true,
+    keyboard: {
+      enabled: true,
+      onlyInViewport: true,
+      pageUpDown: true,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+    },
+    loopedSlides: 12,
+    preloadImages: false,
+    lazy: {
+      loadOnTransitionStart: false,
+      loadPrewNext: false,
+    },
+
+    breakpoints: {
+      768: {
+        loop: true,
+        slidesPerView: 3,
+        slidesPerGroup: 1,
+        spaceBetween: 60,
+        disableOnInteraction: true,
+        navigation: {
+          enabled: true,
+        },
+      },
+      1200: {
+        loop: true,
+        slidesPerView: 5,
+        slidesPerGroup: 1,
+        spaceBetween: 65,
+        disableOnInteraction: true,
+        navigation: {
+          enabled: true,
+        },
+      },
+      1500: {
+        loop: true,
+        slidesPerView: 6,
+        slidesPerGroup: 1,
+        spaceBetween: 58,
+        disableOnInteraction: true,
+        navigation: {
+          enabled: true,
+        },
+      },
+    },
   });
 }
-
-import Glide, {
-  Controls,
-  Breakpoints,
-  Autoplay,
-} from '@glidejs/glide/dist/glide.modular.esm';
-
-new Glide('.glide', {
-  type: 'slider',
-  startAt: 0,
-  perView: 8,
-  autoplay: 3000,
-  animationDuration: 1000,
-  hoverpause: true,
-  bound: true,
-
-  breakpoints: {
-    1280: {
-      perView: 7,
-    },
-    768: {
-      perView: 6,
-    },
-    480: {
-      perView: 3,
-    },
-    320: {
-      perView: 2,
-    },
-  },
-}).mount({ Controls, Breakpoints, Autoplay });
