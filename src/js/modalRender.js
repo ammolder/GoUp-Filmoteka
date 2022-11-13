@@ -10,6 +10,7 @@ import {
 import { keyDown } from './modalListeners';
 
 const body = document.querySelector('body');
+
 export function modal(data) {
   const imagesStock = [image1, image2, image3];
   let randomImages = Math.floor(Math.random() * imagesStock.length);
@@ -18,12 +19,20 @@ export function modal(data) {
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
 
+  let autoplay = 0;
+  console.log(autoplay);
+
   const modalMarckUp = `<div class="backdrop">
   
             <div class="modal is-hidden">
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
+            <div class="modal-iframe-overlay">
+            <button class="modal-btn-iframe"  type="button">Play</button>
+            </div>
+            
+            ${`<iframe class="modal-picture__image modal-iframe"  src="https://www.youtube.com/embed/${data.videos.results[0].key}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`}
             ${
               data.poster_path
                 ? `<img class="modal-picture__image" src= 
@@ -96,4 +105,15 @@ export function modal(data) {
   watchedBtn.addEventListener('click', onWatchedClick);
   const queueBtn = document.querySelector('.queue-btn');
   queueBtn.addEventListener('click', onQueueClick);
+
+  const modalBtnIframe = document.querySelector('.modal-btn-iframe');
+  const modalIframe = document.querySelector('.modal-iframe');
+
+  modalBtnIframe.addEventListener('click', () => {
+    modalIframe.style.visibility = 'visible';
+    modalIframe.setAttribute(
+      'src',
+      `https://www.youtube.com/embed/${data.videos.results[0].key}?autoplay=1`
+    );
+  });
 }
