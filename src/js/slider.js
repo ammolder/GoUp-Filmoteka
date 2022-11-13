@@ -28,14 +28,14 @@ async function render(data) {
   const listCardMovies = data
     .map(item => {
       const cardMovies = !item.poster_path
-        ? `<div class="swiper-slider__wrapper swiper-slide">
+        ? `<div class="swiper-slider__wrapper">
   <img
     class="slide-img"
     src="./image/card.jpg" alt="${item.title}" id='${item.id}
     width="200"
   />
 </div>`
-        : `<div class="swiper-slider__wrapper swiper-slide">
+        : `<div class="swiper-slider__wrapper">
   <img
     class="slide-img"
    src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}
