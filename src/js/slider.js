@@ -24,6 +24,7 @@ async function getMovies() {
 getMovies();
 
 async function render(data) {
+  console.log(data);
   const listCardMovies = data
     .map(item => {
       const cardMovies = !item.poster_path
@@ -44,7 +45,6 @@ async function render(data) {
       return cardMovies;
     })
     .join(' ');
-
 
   refs.lisrTopFilms.insertAdjacentHTML('beforeend', listCardMovies);
 
