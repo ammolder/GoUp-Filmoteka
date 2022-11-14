@@ -27,24 +27,23 @@ async function render(data) {
   const listCardMovies = data
     .map(item => {
       const cardMovies = !item.poster_path
-        ? `<div class="swiper-slider__wrapper">
+        ? `<div class="swiper-slider__wrapper swiper-slide">
   <img
     class="slide-img"
-    src="./image/card.jpg" alt="${item.title}" id='${item.id}
+    src="./image/card.jpg" alt="${item.title}" data-id='${item.id}'
     width="200"
   />
 </div>`
-        : `<div class="swiper-slider__wrapper">
+        : `<div class="swiper-slider__wrapper swiper-slide">
   <img
     class="slide-img"
-   src="${IMG}${item.poster_path}" alt="${item.title}" id='${item.id}
+   src="${IMG}${item.poster_path}" alt="${item.title}" data-id='${item.id}'
     width="200"
   />
 </div>`;
       return cardMovies;
     })
     .join(' ');
-
 
   refs.lisrTopFilms.insertAdjacentHTML('beforeend', listCardMovies);
 

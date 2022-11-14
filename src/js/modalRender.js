@@ -20,7 +20,6 @@ export function modal(data) {
     : 'Unknown';
 
   let autoplay = 0;
-  console.log(autoplay);
 
   const modalMarckUp = `<div class="backdrop">
   
