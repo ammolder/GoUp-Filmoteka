@@ -1,6 +1,7 @@
 import image1 from '../image/sample1.jpg';
 import image2 from '../image/sample2.jpg';
 import image3 from '../image/sample3.jpg';
+import imageYoutubeLogo from '../image/icons8-youtube-logo.svg';
 import {
   onClickModal,
   onQueueClick,
@@ -15,6 +16,14 @@ export function modal(data) {
   const imagesStock = [image1, image2, image3];
   let randomImages = Math.floor(Math.random() * imagesStock.length);
   let images = imagesStock[randomImages];
+
+  const trailer = data.videos.results.find(video => {
+    if (video.name === 'Official Trailer') {
+      return video;
+    }
+    return data.videos.results[0];
+  });
+
   const genre = data.genres.length
     ? data.genres.map(genre => genre.name).join(', ')
     : 'Unknown';
@@ -27,11 +36,13 @@ export function modal(data) {
             <button class="modal-btn" type="button" data-modal-close>
         </button>
             <div class="modal-picture">
+            <img src=${imageYoutubeLogo} alt="youtube" class="modal-image-youtube">
             <div class="modal-iframe-overlay">
-            <button class="modal-btn-iframe"  type="button">Play</button>
+            <button class="modal-btn-iframe"  type="button"></button>
             </div>
             
-            ${`<iframe class="modal-picture__image modal-iframe"  src="https://www.youtube.com/embed/${data.videos.results[0].key}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`}
+            ${`<iframe class="modal-picture__image modal-iframe"  src="https://www.youtube.com/embed/${trailer.key}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+        </iframe>`}
             ${
               data.poster_path
                 ? `<img class="modal-picture__image" src= 
