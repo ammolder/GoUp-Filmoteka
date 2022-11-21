@@ -33,8 +33,9 @@ export async function onClickCard(evt) {
     responseCardDetails = await getApiDetails(cardId);
 
     modal(responseCardDetails.data);
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${window.scrollY}px`;
+
+    document.body.style.overflow = 'hidden';
+
     const buttonWatched = document.querySelector('#library-wathed');
     const buttonQueue = document.querySelector('#library-queue');
     const firebaseAcces = JSON.parse(localStorage.getItem('my-loginUser'));
@@ -70,30 +71,21 @@ export function onClickModal(evt) {
   const modalOverlay = document.querySelector('.backdrop');
   if (evt.target === modalOverlay) {
     modalOverlay.remove();
-    const scrollY = document.body.style.top;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    document.body.style.overflow = 'visible';
     document.removeEventListener('keydown', keyDown);
   }
 }
 export function onBtnCloseClick() {
   const modalBackdrop = document.querySelector('.backdrop');
   modalBackdrop.remove();
-  const scrollY = document.body.style.top;
-  document.body.style.position = '';
-  document.body.style.top = '';
-  window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  document.body.style.overflow = 'visible';
 }
 export function keyDown(evt) {
   const modalOverlay = document.querySelector('.backdrop');
   document.addEventListener('keydown', keyDown);
   if (evt.key === 'Escape') {
     modalOverlay.remove();
-    const scrollY = document.body.style.top;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    document.body.style.overflow = 'visible';
     document.removeEventListener('keydown', keyDown);
   }
 }
